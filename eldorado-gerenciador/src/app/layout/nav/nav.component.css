@@ -1,0 +1,10 @@
+nav{
+    background-color: #054A29;
+}
+nav ul li a{
+    color: #FFFFFF;
+    margin: 0px 15px 0px 15px;
+}
+nav ul li a:focus, nav ul li a:hover{
+    color: #BFDB2A;
+}
