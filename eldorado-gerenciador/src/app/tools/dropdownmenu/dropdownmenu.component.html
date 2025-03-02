@@ -1,0 +1,12 @@
+<li class="dropdown" (mouseenter)="showMenu = true" (mouseleave)="showMenu = false">
+    <a class="nav-link px-2" [routerLink]="tituloLink">{{ titulo }}</a>
+    @if (showMenu) {
+        <ul class="submenu ">
+            @for (option of options; track $index) {
+                <li>
+                    <a class="nav-link px-2 text-start" [routerLink]="option.link">{{option.label}}</a>
+                </li>
+            }         
+        </ul>
+    }
+</li>

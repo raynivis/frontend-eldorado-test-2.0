@@ -1,15 +1,31 @@
-<nav class="d-flex flex-wrap align-items-center justify-content-start justify-content-md-between py-3 mb-4 border-bottom">
-    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-      <li><a href="#" class="ms-4 nav-link px-2">Início</a></li>
-      <li><a href="#" class="nav-link px-2">Usuários</a></li>
-      <li><a href="#" class="nav-link px-2">Tipos de Contato</a></li>
-    </ul>
-    <div class="dropdown text-end me-4">
-      <a href="#" class=" text-light d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-        <img src="https://img.myloview.com.br/quadros/user-icon-vector-people-icon-profile-vector-icon-person-illustration-business-user-icon-users-group-symbol-male-user-symbol-700-223068886.jpg" alt="mdo" width="26" height="26" class="rounded-circle">
-      </a>
-      <ul class="dropdown-menu text-small">
-        <li><a class="dropdown-item" href="#">Sair</a></li>
-      </ul>
-    </div>
+<nav
+  class="d-flex flex-wrap align-items-center justify-content-start justify-content-md-between py-1 mb-1 border-bottom">
+  <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+    <li><a class="nav-link px-2 ms-4"   [routerLink]="''"  >Início</a></li>
+    <!--Componente para fazer o dropdown-->
+    <app-dropdownmenu titulo="Usuários" tituloLink="/usuarios/secao1" [options]="[
+        { label: 'Gerenciar Usuários', link: '/usuarios/secao1' },
+        { label: 'Cadastrar Usuário', link: '/cadastro_usuario' }
+      ]">
+    </app-dropdownmenu>
+    <!--Componente para fazer o dropdown-->
+    <app-dropdownmenu titulo="Tipos de Contato" tituloLink="/tipos_contato/secao1" [options]="[
+        { label: 'Gerenciar Tipos de Contato', link: '/tipos_contato/secao1' },
+        { label: 'Cadastrar Tipo de Contato', link: 'cadastro_tipo_contato' }
+      ]">
+    </app-dropdownmenu>   
+  </ul>
+  <div class="e-mail me-4 mt-1">
+    <!--Gerenciar a sessão ativa-->
+    ia&#64;email.com
+    <button (click)="sair()" type="button" class="ms-2 btn btn-danger ">
+      <div class="d-flex align-items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="ms-2 bi bi-box-arrow-right" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
+          <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+        </svg>
+      </div>
+    </button>
+  </div>
+  
 </nav>

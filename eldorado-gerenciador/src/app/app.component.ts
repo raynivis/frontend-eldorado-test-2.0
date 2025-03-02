@@ -18,4 +18,8 @@ export class AppComponent {
   onLoginSuccess() {
     this.isAuthenticated = true; 
   }
+
+  logout() {
+    this.isAuthenticated = false; 
+  }
 }

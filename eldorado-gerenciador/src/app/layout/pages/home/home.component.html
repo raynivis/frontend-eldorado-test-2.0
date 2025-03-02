@@ -1,1 +1,41 @@
-<p>home works!</p>
+<article class="container">
+    <!--Card do menu principal-->
+    <section class="card m-4">
+        <div class="card-body">
+            <div class="border-bottom">
+                <h6 class="text-center">Bem-vindo(a), Usuário</h6>
+                <p class="fw-lighter text-justify">O <b>Gerenciador de Usuários da Eldorado Brasil</b> é uma plataforma
+                    que facilita a administração e o controle de <b>usuários da organização</b>. O sistema permite a
+                    <b>ativação e desativação de usuários de forma simples e eficiente</b>, garantindo maior
+                    flexibilidade na gestão dos acessos. Além disso, oferece um gerenciamento de contatos, permitindo a
+                    ativação e desativação desses, de acordo com as necessidades da equipe. O objetivo é proporcionar um
+                    controle mais preciso e dinâmico das interações com os <b> usuários e seus dados de contato</b>.</p>
+            </div>
+            <div class="mt-2">
+                <h6 class="text-center">Atalhos</h6>
+                <p class="fw-light">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="#054A29" class="bi bi-people-fill" viewBox="0 0 20 20">
+                        <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"></path>
+                    </svg>
+                    <b>Usuários</b>
+                </p>
+                <div class="d-flex justify-content-center pb-3 border-bottom">
+                    <button [routerLink]="'/cadastro_usuario'" type="button" class="btn btn-success m-1">Cadastro</button>
+                    <button [routerLink]="['/usuarios','secao1']" type="button" class="btn btn-success m-1">Listar Ativos</button>
+                    <button [routerLink]="['/usuarios','secao2']" type="button" class="btn btn-success m-1">Listar Inativos</button>
+                </div>
+                <p class="fw-light mt-5">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#054A29" class="bi bi-telephone-inbound-fill" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877zM15.854.146a.5.5 0 0 1 0 .708L11.707 5H14.5a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 1 0v2.793L15.146.146a.5.5 0 0 1 .708 0"/>
+                      </svg>
+                    <b>Tipos de Contato</b>
+                </p>
+                <div class="d-flex justify-content-center pb-3">
+                    <button [routerLink]="'/cadastro_tipo_contato'" type="button" class="btn btn-success m-1">Cadastro</button>
+                    <button [routerLink]="['/tipos_contato','secao1']" type="button" class="btn btn-success m-1">Listar Ativos</button>
+                    <button [routerLink]="['/tipos_contato','secao2']" type="button" class="btn btn-success m-1">Listar Inativos</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</article>

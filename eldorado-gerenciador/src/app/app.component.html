@@ -1,7 +1,9 @@
 <app-header></app-header>
-@if (!isAuthenticated) {
-    <app-nav></app-nav>
-    <router-outlet></router-outlet>
+@if(isAuthenticated) {
+    <app-nav (logoutE)="logout()"></app-nav>
+    <main class="main">
+        <router-outlet></router-outlet>
+    </main>
 }
 @else {
     <app-login (loginSuccess)="onLoginSuccess()"></app-login>
