@@ -1,0 +1,14 @@
+nav a{
+    color: #000000;
+    width: 400px;
+    min-width: 200px;
+    font-size: 14px;
+}
+
+nav a:hover{
+    cursor: pointer;
+}
+
+nav .selecionado{
+    border-bottom: 4px solid #054A29;
+}

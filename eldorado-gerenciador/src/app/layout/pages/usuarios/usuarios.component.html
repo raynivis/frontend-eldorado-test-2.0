@@ -1,0 +1,11 @@
+<app-nav-view secao1="Usuários Ativos" secao2="Usuários Inativos"
+[secaoAtiva]="secao" caminhoRouter="usuarios/">
+</app-nav-view>
+
+<article class="container d-flex justify-content-center mb-4">
+    <div class="">
+        <app-table-usuario [secao]="secao"></app-table-usuario>
+    </div>
+</article>
+
+

@@ -1,0 +1,19 @@
+<!--Navegação de Ativos e Desativos-->
+<nav class=" container d-flex justify-content-center">
+    <nav class="container d-flex justify-content-center">
+        <a 
+           class="m-1 fw-bolder text-center link-offset-2 link-underline link-underline-opacity-0"
+           [class]="{'selecionado': secaoAtiva === 'secao1'}"
+           (click)="selecionarSecao('secao1')">
+           {{secao1}}
+        </a>
+    
+        <a  
+           class="m-1 fw-bolder text-center link-offset-2 link-underline link-underline-opacity-0"
+           [class]="{'selecionado': secaoAtiva === 'secao2'}"
+           (click)="selecionarSecao('secao2')">
+           {{secao2}}
+        </a>
+    </nav>
+    
+</nav>
