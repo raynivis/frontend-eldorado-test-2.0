@@ -3,6 +3,7 @@ import { NavViewComponent } from '../../../tools/nav-view/nav-view.component';
 import { ActivatedRoute } from '@angular/router';
 import { TableUsuarioComponent } from '../../tables/table-usuario/table-usuario.component';
 
+
 @Component({
   selector: 'app-usuarios',
   imports: [NavViewComponent, TableUsuarioComponent],

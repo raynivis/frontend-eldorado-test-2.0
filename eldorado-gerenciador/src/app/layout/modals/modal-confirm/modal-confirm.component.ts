@@ -9,4 +9,12 @@ import { Component, Input, input } from '@angular/core';
 export class ModalConfirmComponent {
   //Modal para confirmacoes (UX)
   @Input() texto = '';
+  @Input() acaoContinuar: (() => void) | undefined; //função recebida
+
+  continuar() {
+    if (this.acaoContinuar) {
+      this.acaoContinuar(); //função recebida
+    }
+  }
+  
 }

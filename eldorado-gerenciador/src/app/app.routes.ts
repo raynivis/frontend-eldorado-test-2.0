@@ -5,13 +5,29 @@ import { CadastroUsuarioComponent } from './layout/pages/cadastro-usuario/cadast
 import { TiposContatoComponent } from './layout/pages/tipos-contato/tipos-contato.component';
 import { CadastroTipoContatoComponent } from './layout/pages/cadastro-tipo-contato/cadastro-tipo-contato.component';
 import { ContatosComponent } from './layout/pages/contatos/contatos.component';
+import { LoginComponent } from './layout/pages/login/login.component';
+import { ManagementComponent } from './layout/main-routes/management/management.component';
+import { authGuard } from './guard/auth-guard.guard';
 
 export const routes: Routes = [
-    {path: '', component: HomeComponent},
-    {path: 'usuarios/:secao', component: UsuariosComponent},
-    {path: 'cadastro_usuario', component: CadastroUsuarioComponent},
-    {path: 'tipos_contato/:secao', component: TiposContatoComponent},
-    {path: 'cadastro_tipo_contato', component: CadastroTipoContatoComponent},
-    {path: 'contatos/:secao', component: ContatosComponent}
+    {
+        path: '', component: ManagementComponent,
+        children: [
+            {path: '', component: HomeComponent},
+            {path: 'usuarios/:secao', component: UsuariosComponent},
+            {path: 'cadastro_usuario', component: CadastroUsuarioComponent},
+            {path: 'tipos_contato/:secao', component: TiposContatoComponent},
+            {path: 'cadastro_tipo_contato', component: CadastroTipoContatoComponent},
+            {path: 'contatos/:secao', component: ContatosComponent}
+        ],
+        canActivate: [authGuard]
+    },
+    {
+        path: '', component: LoginComponent,
+        children: [
+            {path: '', redirectTo: 'login', pathMatch: 'full'}, //evitar erro do user
+            {path: 'login', component: LoginComponent}
+        ]
+    }
 ];
 

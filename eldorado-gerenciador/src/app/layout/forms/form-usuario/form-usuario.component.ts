@@ -1,20 +1,66 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { ToastSuccessComponent } from '../../toasts/toast-success/toast-success.component';
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { UsuarioService } from '../../../services/usuario.service';
+import { ToastComponent } from "../../../tools/toast/toast.component";
 
 @Component({
   selector: 'app-form-usuario',
-  imports: [ToastSuccessComponent],
+  imports: [ReactiveFormsModule, ToastComponent],
   templateUrl: './form-usuario.component.html',
   styleUrl: './form-usuario.component.css'
 })
 export class FormUsuarioComponent {
 
-  @ViewChild('ToastSuccess') modalElementSucesso!: ElementRef;
+  @ViewChild('Toast') toastElement!: ElementRef;
   mostrarSenha = false;
+  isLoading = false; //controlar o carregamento
+  feedbackToast = '';
+  tipoFeedback = '';
+  private readonly fB = inject(FormBuilder);
+  private readonly userService = inject(UsuarioService);
+  form = this.fB.group({
+    nome: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    senha: ['', Validators.required]
+  });
 
-  openModalToastS(){
-    if (this.modalElementSucesso) {
-      const modal = new (window as any).bootstrap.Toast(this.modalElementSucesso.nativeElement);
+  cadastrar() {
+    const user = {
+      nome: this.form.value.nome!,
+      email: this.form.value.email!,
+      senha: this.form.value.senha!
+    };
+  
+    this.isLoading = true; // Desativa o botão para evitar spam
+  
+    this.userService.createUser(user).subscribe({
+      next: () => {
+        this.isLoading = false;
+        this.form.reset();
+        this.feedbackToast = 'Usuário Cadastrado com Sucesso';
+        this.tipoFeedback = 'bg-success';
+        this.openModalToastS();
+      },
+      error: (err) => {
+        this.isLoading = false;
+        console.error("Erro ao cadastrar:", err);
+  
+        if (err.status === 401) {
+          this.feedbackToast = 'Não autorizado! Reinicie seu login.';
+        } else {
+          this.feedbackToast = `Ocorreu um erro: ${err.message || 'Erro desconhecido'}`;
+        }
+        
+        this.tipoFeedback = 'bg-danger';
+        this.openModalToastS();
+      }
+    });
+  }
+  
+
+  openModalToastS() {
+    if (this.toastElement) {
+      const modal = new (window as any).bootstrap.Toast(this.toastElement.nativeElement);
       modal.show();
     } else {
       console.error('Modal element não encontrado');
@@ -25,5 +71,5 @@ export class FormUsuarioComponent {
     this.mostrarSenha = !this.mostrarSenha;
   }
 
-
 }
+

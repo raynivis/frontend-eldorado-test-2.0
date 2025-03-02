@@ -12,17 +12,11 @@ nav ul li a:focus, nav ul li a:hover{
     color: #BFDB2A;
 }
 
-.e-mail {
-    color: #FFFFFF;
-    font-size: 14px;
-    padding: 10px;
-    margin: 0px 15px 0px 15px;
-}
 
-button{
-    width: 30px;
-    height: 30px;
+.sairbotao{
     border: 0;
+    margin-left: 5px;
     padding: 0;
 }
+
 
