@@ -1,4 +1,4 @@
-<!-- Modal -->
+<!-- Optei em usar um modal para a personalizacao dos contatos do usuario -->
 <div class="modal-dialog modal-lg modal-dialog-scrollable">
     <div class="modal-content">
         <div class="d-flex justify-content-end">
@@ -6,12 +6,14 @@
         </div>
         <div class="modal-header">
             <div class="w-100">
+                <!--Barra de navegacao do modal-->
                 <app-nav-view secao1="Contatos" secao2="Cadastrar Novo Contato" caminhoRouter="modal"
                     (modalRouter)="secaoAtual = $event">
                 </app-nav-view>
             </div>
         </div>
         <div class="modal-body mb-5">
+            <!--A Secao 1 apresenta os contatos do usuario ativos e desativos-->
             @if(secaoAtual === 'secao1') {
                 <!--Contatos que estão ativos-->
                 <h6 class="text-center">Contatos Ativos</h6>
@@ -21,6 +23,7 @@
                 <h6 class="text-center mt-4">Contatos Inativos</h6>
                 <app-table-contato></app-table-contato>
             }
+            <!--A Secao 2 apresenta o formulario de criacao de contato (É a melhor forma para cadastrar um contato) -->
             @else {
                 <section class="container">
                     <app-form-contato></app-form-contato>

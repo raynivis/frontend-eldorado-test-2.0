@@ -10,5 +10,7 @@ import { FormContatoComponent } from '../../forms/form-contato/form-contato.comp
   styleUrl: './modal-contato.component.css'
 })
 export class ModalContatoComponent {
+  //Modal para Contatos do Usuario
+
   secaoAtual = 'secao1'; 
 }

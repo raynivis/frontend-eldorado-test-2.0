@@ -1,8 +1,9 @@
+<!--Tabela usada para o gerenciamento direto dos contatos, eu não recomendaria o uso dela, pois não é muito segura-->
 <table class="table table-hover table-center mb-0">
     <thead>
         <tr>
-            <th>Nome</th>
-            <th>E-mail</th>
+            <th>Nome do Contato</th>
+            <th>Contato</th>
             <th>Ações</th>
         </tr>
     </thead>
@@ -12,7 +13,7 @@
             <td>ia&#64;email.com</td>
             <td>
                 @if (secao === 'secao1') {
-                    <app-tooltip texto="Desativar Usuário" position="top">
+                    <app-tooltip texto="Desativar Contato" position="top">
                         <svg (click)="ConfDesativar()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#e74c3c"
                             class="m-1 material-icons bi bi-x-circle-fill" viewBox="0 0 16 16">
                             <path
@@ -21,7 +22,7 @@
                     </app-tooltip>
                 }
                 @else {
-                    <app-tooltip texto="Ativar Usuário" position="top">
+                    <app-tooltip texto="Ativar Contato" position="top">
                         <svg (click)="ConfAtivar()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#179C4F"
                             class="m-1 material-icons bi bi-check-circle-fill" viewBox="0 0 16 16">
                             <path
@@ -29,21 +30,11 @@
                         </svg>
                     </app-tooltip>
                 }
-                <app-tooltip texto="Contatos" position="top">
-                    <svg (click)="openModalContato()" xmlns="http://www.w3.org/2000/svg" width="16" height="20" fill="#3498db"
-                        class="m-1 material-icons bi bi-person-lines-fill" viewBox="0 0 16 16">
-                        <path
-                            d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z" />
-                    </svg>
-                </app-tooltip>
+                
             </td>
         </tr>
     </tbody>
 </table>
-<!--Modal do Contatos-->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" #ModalContato> 
-    <app-modal-contato></app-modal-contato>
-</div>
 
 <!--Modal de Confirmar-->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" #ModalConf> 

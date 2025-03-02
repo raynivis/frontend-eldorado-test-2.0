@@ -3,13 +3,13 @@ import { TooltipComponent } from '../../../tools/tooltip/tooltip.component';
 import { ModalConfirmComponent } from '../../modals/modal-confirm/modal-confirm.component';
 
 @Component({
-  selector: 'app-table-contato',
+  selector: 'app-table-todos-contatos',
   imports: [TooltipComponent, ModalConfirmComponent],
-  templateUrl: './table-contato.component.html',
-  styleUrl: './table-contato.component.css'
+  templateUrl: './table-todos-contatos.component.html',
+  styleUrl: './table-todos-contatos.component.css'
 })
-export class TableContatoComponent {
-  @Input() tipo = '';
+export class TableTodosContatosComponent {
+  @Input() secao = ''; 
   textoConfirmar = '';
   @ViewChild('ModalConf') modalElementConfirmar !: ElementRef;
 
@@ -25,16 +25,15 @@ export class TableContatoComponent {
 
   //Desativar
   ConfDesativar() {
-    this.textoConfirmar = "Você deseja mesmo desativar este contato?";
+    this.textoConfirmar = "Tem certeza de que deseja desativar este contato sem saber a qual usuário ele está relacionado?";
     this.openModalConfirmar();
   }
 
   //Ativar
   ConfAtivar() {
-    this.textoConfirmar = "Você deseja mesmo ativar este contato?";
+    this.textoConfirmar = "Tem certeza de que deseja ativar este contato sem saber a qual usuário ele está relacionado?";
     this.openModalConfirmar();
   }
-
-
+  
 
 }

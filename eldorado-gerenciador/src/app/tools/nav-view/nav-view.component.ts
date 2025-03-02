@@ -8,15 +8,22 @@ import { Router } from '@angular/router';
   styleUrl: './nav-view.component.css'
 })
 export class NavViewComponent {
+
+  //Esse é um dos componentes mais importante desse projeto, usei ele muito em outros componentes
+
   private readonly router = inject(Router);
+  //Primeira e Segunda Secao da NavBar
   @Input() secao1 = ''; 
   @Input() secao2 = ''; 
   @Input() secaoAtiva = 'secao1'; //Secao Padrao
+  //Caminho que o roteamento vai levar
   @Input() caminhoRouter = '';
+  //exclusivamente pra nav do modal
   @Output() modalRouter = new EventEmitter<string>(); 
 
   selecionarSecao(secao: string) {
     this.secaoAtiva = secao;
+    //caso o caminho inserido for "modal" ele nao faz o roteamento pelo router-outlet
     if(this.caminhoRouter === 'modal'){
         this.modalRouter.emit(secao);
         return;

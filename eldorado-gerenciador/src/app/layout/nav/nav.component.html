@@ -1,7 +1,7 @@
 <nav
   class="d-flex flex-wrap align-items-center justify-content-start justify-content-md-between py-1 mb-1 border-bottom">
   <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-    <li><a class="nav-link px-2 ms-4"   [routerLink]="''"  >Início</a></li>
+    <li><a class="nav-link px-2 ms-4" [routerLink]="''">Início</a></li>
     <!--Componente para fazer o dropdown-->
     <app-dropdownmenu titulo="Usuários" tituloLink="/usuarios/secao1" [options]="[
         { label: 'Gerenciar Usuários', link: '/usuarios/secao1' },
@@ -14,6 +14,11 @@
         { label: 'Cadastrar Tipo de Contato', link: 'cadastro_tipo_contato' }
       ]">
     </app-dropdownmenu>   
+    <!--Componente para fazer o dropdown-->
+    <app-dropdownmenu titulo="Contatos" tituloLink="/contatos/secao1" [options]="[
+        { label: 'Gerenciar Contatos', link: '/contatos/secao1' },
+      ]">
+    </app-dropdownmenu>  
   </ul>
   <div class="e-mail me-4 mt-1">
     <!--Gerenciar a sessão ativa-->
@@ -27,5 +32,4 @@
       </div>
     </button>
   </div>
-  
 </nav>

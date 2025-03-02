@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, input } from '@angular/core';
 
 @Component({
   selector: 'app-modal-confirm',
@@ -7,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrl: './modal-confirm.component.css'
 })
 export class ModalConfirmComponent {
-
+  //Modal para confirmacoes (UX)
+  @Input() texto = '';
 }

@@ -9,8 +9,8 @@ import { RouterModule } from '@angular/router';
 })
 export class DropdownmenuComponent {
   @Input() titulo = '';  
-  @Input() tituloLink = '';
-  @Input() options: { label: string; link: string }[] = []; // Lista de opções
+  @Input() tituloLink = ''; //router da navegacao principal
+  @Input() options: { label: string; link: string }[] = []; // Lista da navegacao
 
   showMenu = false;
 }

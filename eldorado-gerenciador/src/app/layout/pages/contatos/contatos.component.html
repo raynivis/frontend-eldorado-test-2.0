@@ -1,0 +1,7 @@
+<app-nav-view secao1="Contato Ativos" secao2="Contatos Inativos" 
+[secaoAtiva]="secao" caminhoRouter="contatos/" >
+</app-nav-view>
+
+<article class="container d-flex justify-content-center mb-4">
+    <app-table-todos-contatos [secao]="secao"></app-table-todos-contatos>
+</article>
