@@ -26,7 +26,6 @@ export class LoginService {
       //faz a requisição POST
       this.http.post<any>(this.APIBase, body.toString(), { headers }).subscribe({
         next: (response) => {
-          console.log('Resposta da API:', response);
           if(response && response.access_token) {
 
             //armazenando em json para usar o access_token no interceptor
@@ -56,6 +55,21 @@ export class LoginService {
   //tranformando o json em objeto
   getAuthToken() {
     return JSON.parse(localStorage.getItem('token') || '{}'); // Retorna um objeto ou um objeto vazio
+  }
+
+  //verificar a auth
+  isAuthenticated(): boolean {
+    const token = this.getAuthToken();
+    return !!(token && token.access_token && !this.isTokenExpired(token.access_token));
+  }
+
+  private isTokenExpired(token: string): boolean {
+    try { //verificando se o token esta expirado
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.exp * 1000 < Date.now();
+    } catch (e) {
+      return true; // se falhar na codificacao vai considerar expirado
+    }
   }
 
 }

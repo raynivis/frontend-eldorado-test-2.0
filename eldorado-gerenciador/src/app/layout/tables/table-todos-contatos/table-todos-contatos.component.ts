@@ -3,18 +3,26 @@ import { TooltipComponent } from '../../../tools/tooltip/tooltip.component';
 import { ModalConfirmComponent } from '../../modals/modal-confirm/modal-confirm.component';
 import { Contato } from '../../../models/contato-model';
 import { ContatoService } from '../../../services/contato.service';
+import { TableStatusComponent } from "../../../tools/table-status/table-status.component";
+import { ToastComponent } from "../../../tools/toast/toast.component";
 
 @Component({
   selector: 'app-table-todos-contatos',
-  imports: [TooltipComponent, ModalConfirmComponent],
+  imports: [TooltipComponent, ModalConfirmComponent, TableStatusComponent, ToastComponent],
   templateUrl: './table-todos-contatos.component.html',
   styleUrl: './table-todos-contatos.component.css'
 })
 export class TableTodosContatosComponent implements OnChanges{
-  @Input() secao = ''; 
-  textoConfirmar = '';
-  idAlterar: undefined | number;
-  private contactService = inject(ContatoService);
+  @Input() secao = ''; //secao atual
+  textoConfirmar = ''; //texto para confirmar o modal
+  statusTable = ''; //status da tabela
+
+  idAlterar: undefined | number; //id para mudar o status
+  feedbackToast = ''; //texto para o toast
+  tipoFeedback = ''; //tipo positivo/negativo
+  @ViewChild('Toast') toastElement!: ElementRef;
+
+  private contactService = inject(ContatoService);  
   contatos: Contato[] = [];
   @ViewChild('ModalConf') modalElementConfirmar !: ElementRef;
 
@@ -28,13 +36,16 @@ export class TableTodosContatosComponent implements OnChanges{
 
   //carregar os contatos inativos ou ativos
   carregarContatos(): void {
+    this.statusTable = 'Carregando Contatos...';
     if (this.secao === 'secao1') {
       this.contactService.listAtivos().subscribe((data) => {
         this.contatos = data;
+        this.statusTable = this.contatos.length ? '' : 'Não há contatos ativos cadastrados :('; //ternario para status
       });
     } else if (this.secao === 'secao2') {
       this.contactService.listInativos().subscribe((data) => {
         this.contatos = data;
+        this.statusTable = this.contatos.length ? '' : 'Não há contatos inativos cadastrados :('; //ternario para status
       });
     }
   }
@@ -43,10 +54,20 @@ export class TableTodosContatosComponent implements OnChanges{
   alterarStatus() {
     this.contactService.updateStatusContact(this.idAlterar!).subscribe({
       next: () => {
+        this.feedbackToast = 'Contato alterado com sucesso';
+        this.tipoFeedback = 'bg-success';
+        this.openModalToastS();
         this.carregarContatos(); // recarrega a lista de contatos apos a alteracao
       },
       error: (err) => {
-        console.error('Erro ao alterar o status do tipo:', err);
+        //erro comum do usuario
+        if (err.status === 401) {
+          this.feedbackToast = 'Não autorizado! Faça novamente seu login.';
+        } else {
+          this.feedbackToast = `Ocorreu um erro: ${err.message || 'Erro desconhecido'}`;
+        }
+        this.tipoFeedback = 'bg-danger';
+        this.openModalToastS();
       }
     });
   }
@@ -55,6 +76,15 @@ export class TableTodosContatosComponent implements OnChanges{
   openModalConfirmar(){
     if (this.modalElementConfirmar) {
       const modal = new (window as any).bootstrap.Modal(this.modalElementConfirmar.nativeElement);
+      modal.show();
+    } else {
+      console.error('Modal element não encontrado');
+    }
+  }
+
+  openModalToastS() {
+    if (this.toastElement) {
+      const modal = new (window as any).bootstrap.Toast(this.toastElement.nativeElement);
       modal.show();
     } else {
       console.error('Modal element não encontrado');

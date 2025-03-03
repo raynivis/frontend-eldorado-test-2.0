@@ -1,8 +1,6 @@
 @if(contatos.length === 0)
 {
-<div class="msg-none shadow-sm p-5 fw-light bg-white rounded text-center">
-    Não há dados cadastrados :(
-</div>
+<app-table-status [status]="statusTable"></app-table-status>
 }
 @else {
 <!--Tabela usada para o gerenciamento direto dos contatos, eu não recomendaria o uso dela, pois não é muito segura-->
@@ -31,8 +29,8 @@
                 }
                 @else {
                 <app-tooltip texto="Ativar Contato" position="top">
-                    <svg (click)="ConfAtivar(contato.id)" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#179C4F"
-                        class="m-1 material-icons bi bi-check-circle-fill" viewBox="0 0 16 16">
+                    <svg (click)="ConfAtivar(contato.id)" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        fill="#179C4F" class="m-1 material-icons bi bi-check-circle-fill" viewBox="0 0 16 16">
                         <path
                             d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
                     </svg>
@@ -49,4 +47,9 @@
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true" #ModalConf>
     <app-modal-confirm [texto]="textoConfirmar" [acaoContinuar]="alterarStatus.bind(this)"></app-modal-confirm>
+</div>
+
+<!--Toast-->
+<div class="toast position-absolute border-0 top-0 end-0 m-4" role="alert" #Toast> 
+    <app-toast [mensagem]="feedbackToast" [toastClass]="tipoFeedback"></app-toast>   
 </div>

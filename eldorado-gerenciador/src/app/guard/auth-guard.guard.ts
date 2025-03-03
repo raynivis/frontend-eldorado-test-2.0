@@ -1,14 +1,17 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
+import { LoginService } from '../services/login.service';
 
 export const authGuard: CanActivateFn = (route, state) => {
+   //JWT do sistema
   const router = inject(Router);
+  const loginService = inject(LoginService);
   
-  const token = window.localStorage.getItem('token');
-  if(token)
+  if (loginService.isAuthenticated()) {
     return true;
-   else {
-      router.navigate(['login']);
-      return false;
-   }
+  } else {
+    alert('Sua Sessão foi expirada, por favor refaça o login')
+    router.navigate(['login']);
+    return false;
+  }
 };

@@ -42,7 +42,6 @@ export class FormUsuarioComponent {
       },
       error: (err) => { //caso de erro
         this.isLoading = false;
-        console.error("Erro ao cadastrar:", err);
         //erro comum do usuario
         if (err.status === 401) {
           this.feedbackToast = 'Não autorizado! Faça novamente seu login.';

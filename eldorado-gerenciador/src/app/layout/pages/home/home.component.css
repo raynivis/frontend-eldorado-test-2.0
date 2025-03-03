@@ -3,7 +3,10 @@ div button{
     width: 200px;
     min-width: 50px;
     font-size: 14px;
+}
 
+div button:hover{
+    color: #CBDB2A;
 }
 
 article{

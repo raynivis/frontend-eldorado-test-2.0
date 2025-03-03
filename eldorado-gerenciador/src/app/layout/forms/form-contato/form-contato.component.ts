@@ -45,7 +45,7 @@ export class FormContatoComponent implements OnInit {
     }
 
     const contact = {
-      idtipo: this.form.value.idtipo,
+      idtipo: Number(this.form.value.idtipo),
       idusuario: this.idUsuario,
       nome: this.form.value.nome,
       valor: this.form.value.valor,
@@ -53,6 +53,7 @@ export class FormContatoComponent implements OnInit {
   
     this.isLoading = true; // Desativa o botão para evitar spam
   
+    console.log(contact);
     this.contactService.createContact(contact).subscribe({
       next: () => { //apos a requisicao
         this.isLoading = false;
