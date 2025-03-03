@@ -17,7 +17,7 @@ export class ContatoService {
     }
   
     listInativos(): Observable<Contato[]> {
-      return this.http.get<Contato[]>(`${this.APIBaseContacts}/inaltivos`); //fiquei procurando e era o inaltivos
+      return this.http.get<Contato[]>(`${this.APIBaseContacts}/inaltivos`); // o inaltivos deveria ser inativos
     }
   
     createContact(contact: any){

@@ -54,7 +54,7 @@ export class LoginService {
 
   //tranformando o json em objeto
   getAuthToken() {
-    return JSON.parse(localStorage.getItem('token') || '{}'); // Retorna um objeto ou um objeto vazio
+    return JSON.parse(localStorage.getItem('token') || '{}'); // retorna um objeto ou um objeto vazio
   }
 
   //verificar a auth

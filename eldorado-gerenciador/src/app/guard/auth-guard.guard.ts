@@ -2,6 +2,7 @@ import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { LoginService } from '../services/login.service';
 
+//guardiao para evitar acesso equivocado do usuario
 export const authGuard: CanActivateFn = (route, state) => {
    //JWT do sistema
   const router = inject(Router);
@@ -12,6 +13,6 @@ export const authGuard: CanActivateFn = (route, state) => {
   } else {
     alert('Sua Sessão foi expirada, por favor refaça o login')
     router.navigate(['login']);
-    return false;
+    return false; 
   }
 };

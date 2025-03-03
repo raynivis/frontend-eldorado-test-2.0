@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './layout/pages/home/home.component';
 import { UsuariosComponent } from './layout/pages/usuarios/usuarios.component';
 import { CadastroUsuarioComponent } from './layout/pages/cadastro-usuario/cadastro-usuario.component';
@@ -30,4 +30,6 @@ export const routes: Routes = [
         ]
     }
 ];
+
+
 

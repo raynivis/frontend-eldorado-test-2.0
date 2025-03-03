@@ -13,7 +13,7 @@ import { ToastComponent } from "../../../tools/toast/toast.component";
 })
 export class FormLoginComponent{
   @ViewChild('Toast') toastElement!: ElementRef;
-  feedbackToast = '';
+  feedbackToast = ''; //texto para o toast
   mostrarSenha = false;
   isLoading = false; //controlar o carregamento
   private readonly fB = inject(FormBuilder)

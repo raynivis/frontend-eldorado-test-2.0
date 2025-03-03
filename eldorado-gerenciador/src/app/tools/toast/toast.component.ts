@@ -7,7 +7,7 @@ import { Component, Input } from '@angular/core';
   styleUrl: './toast.component.css'
 })
 export class ToastComponent {
-    //Toast para feedback positivo ao usuário ao uma acao bem-sucedida
+    //Toast para feedback positivo ao usuário ao uma acao
     @Input() mensagem ='';
     @Input() toastClass: string = 'text-bg-success'; // padrao para success
 

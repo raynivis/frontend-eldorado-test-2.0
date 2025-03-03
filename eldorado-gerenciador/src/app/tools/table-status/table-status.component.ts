@@ -7,5 +7,6 @@ import { Component, Input } from '@angular/core';
   styleUrl: './table-status.component.css'
 })
 export class TableStatusComponent {
+  //auxiliar o usuario a localizar o estado da tabela
   @Input() status = '';
 }
