@@ -58,6 +58,7 @@ export class FormContatoComponent implements OnInit {
       next: () => { //apos a requisicao
         this.isLoading = false;
         this.form.reset();
+        this.form.patchValue({ idtipo: 'selecione' });
         this.feedbackToast = 'Contato Cadastrado com Sucesso';
         this.tipoFeedback = 'bg-success';
         this.openModalToastS();

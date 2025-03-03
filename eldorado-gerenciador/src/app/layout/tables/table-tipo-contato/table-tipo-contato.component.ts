@@ -38,14 +38,38 @@ export class TableTipoContatoComponent implements OnChanges {
   carregarTipos(): void {
     this.statusTable = 'Carregando Tipos de Contato...';
     if (this.secao === 'secao1') {
-      this.typeService.listAtivos().subscribe((data) => {
-        this.tipos = data;
-        this.statusTable = this.tipos.length ? '' : 'Não há tipos de contatos ativos cadastrados :('; //ternario para status
+      this.typeService.listAtivos().subscribe({
+        next: (data) => {
+          this.tipos = data;
+          this.statusTable = this.tipos.length ? '' : 'Não há tipos de contatos ativos cadastrados :('; //ternario para status
+        },
+        error: (err) => {
+          //erro comum do usuario
+          if (err.status === 401) {
+            this.feedbackToast = 'Sua sessão expirou! Faça novamente seu login.';
+          } else {
+            this.feedbackToast = `Ocorreu um erro: ${err.message || 'Erro desconhecido'}`;
+          }
+          this.tipoFeedback = 'bg-danger';
+          this.openModalToastS();
+        }
       });
     } else if (this.secao === 'secao2') {
-      this.typeService.listInativos().subscribe((data) => {
-        this.tipos = data;
-        this.statusTable = this.tipos.length ? '' : 'Não há tipos de contatos inativos cadastrados :('; //ternario para status
+      this.typeService.listInativos().subscribe({
+        next: (data) => {
+          this.tipos = data;
+          this.statusTable = this.tipos.length ? '' : 'Não há tipos de contatos inativos cadastrados :('; //ternario para status
+        },
+        error: (err) => {
+          //erro comum do usuario
+          if (err.status === 401) {
+            this.feedbackToast = 'Sua sessão expirou! Faça novamente seu login.';
+          } else {
+            this.feedbackToast = `Ocorreu um erro: ${err.message || 'Erro desconhecido'}`;
+          }
+          this.tipoFeedback = 'bg-danger';
+          this.openModalToastS();
+        }
       });
     }
   }

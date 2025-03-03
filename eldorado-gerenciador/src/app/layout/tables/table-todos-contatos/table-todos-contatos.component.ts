@@ -38,14 +38,38 @@ export class TableTodosContatosComponent implements OnChanges{
   carregarContatos(): void {
     this.statusTable = 'Carregando Contatos...';
     if (this.secao === 'secao1') {
-      this.contactService.listAtivos().subscribe((data) => {
-        this.contatos = data;
-        this.statusTable = this.contatos.length ? '' : 'Não há contatos ativos cadastrados :('; //ternario para status
+      this.contactService.listAtivos().subscribe({
+        next: (data) => {
+          this.contatos = data;
+          this.statusTable = this.contatos.length ? '' : 'Não há contatos ativos cadastrados :('; //ternario para status
+        },
+        error: (err) => {
+          //erro comum do usuario
+          if (err.status === 401) {
+            this.feedbackToast = 'Sua sessão expirou! Faça novamente seu login.';
+          } else {
+            this.feedbackToast = `Ocorreu um erro: ${err.message || 'Erro desconhecido'}`;
+          }
+          this.tipoFeedback = 'bg-danger';
+          this.openModalToastS();
+        }
       });
     } else if (this.secao === 'secao2') {
-      this.contactService.listInativos().subscribe((data) => {
-        this.contatos = data;
-        this.statusTable = this.contatos.length ? '' : 'Não há contatos inativos cadastrados :('; //ternario para status
+      this.contactService.listInativos().subscribe({
+        next: (data) => {
+          this.contatos = data;
+          this.statusTable = this.contatos.length ? '' : 'Não há contatos inativos cadastrados :('; //ternario para status
+        },
+        error: (err) => {
+          //erro comum do usuario
+          if (err.status === 401) {
+            this.feedbackToast = 'Sua sessão expirou! Faça novamente seu login.';
+          } else {
+            this.feedbackToast = `Ocorreu um erro: ${err.message || 'Erro desconhecido'}`;
+          }
+          this.tipoFeedback = 'bg-danger';
+          this.openModalToastS();
+        }
       });
     }
   }
