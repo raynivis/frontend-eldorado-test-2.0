@@ -2,3 +2,11 @@
     width: 800px;
     font-size: 13px;
 }
+
+/* Quando a tela for menor que 750*/
+@media (max-width: 770px) {
+    .msg-none{
+        width: 100%; 
+        font-size: 11px; 
+    }
+}
