@@ -14,8 +14,6 @@ export class NavComponent {
   private readonly loginService = inject(LoginService);
   private readonly router = inject(Router);
   @ViewChild('ModalConf') modalElementConfirmar !: ElementRef;
-  textoConfirmar = 'Você deseja sair da Conta?';
-
 
   sair() {  
     this.loginService.logout();

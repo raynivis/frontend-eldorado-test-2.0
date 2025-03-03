@@ -23,11 +23,6 @@ export class NavViewComponent {
 
   selecionarSecao(secao: string) {
     this.secaoAtiva = secao;
-    //caso o caminho inserido for "modal" ele nao faz o roteamento pelo router-outlet
-    if(this.caminhoRouter === 'modal'){
-        this.modalRouter.emit(secao);
-        return;
-    }
     this.router.navigate([this.caminhoRouter, secao]); 
   }
 }

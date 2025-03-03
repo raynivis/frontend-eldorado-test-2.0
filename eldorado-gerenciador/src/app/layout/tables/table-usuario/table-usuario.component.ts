@@ -13,10 +13,12 @@ import { Usuario } from '../../../models/usuario-model';
 })
 export class TableUsuarioComponent implements OnChanges {
   @Input() secao = '';
+  @Input() atualizar!: () => void; // Função recebida do pai
   textoConfirmar = '';
   idAlterar: undefined | number;
+  
   private userService = inject(UsuarioService);
-  @Input() usuarios: Usuario[] = [];
+  usuarios: Usuario[] = [];
   @ViewChild('ModalContato') modalElementContato!: ElementRef;
   @ViewChild('ModalConf') modalElementConfirmar !: ElementRef;
 
@@ -44,9 +46,8 @@ export class TableUsuarioComponent implements OnChanges {
   // Alterar o status do usuário
   alterarStatus() {
     this.userService.updateStatusUser(this.idAlterar!).subscribe({
-      next: () => {
-        console.log('Status do usuário alterado com sucesso.');
-        this.carregarUsuarios(); // Recarrega a lista de usuários após a alteração
+      next: (dado) => {
+        this.carregarUsuarios();
       },
       error: (err) => {
         console.error('Erro ao alterar o status do usuário:', err);
@@ -55,14 +56,22 @@ export class TableUsuarioComponent implements OnChanges {
   }
 
   //Abrir o Modal de Contato
-  openModalContato() {
-    if (this.modalElementContato) {
-      const modal = new (window as any).bootstrap.Modal(this.modalElementContato.nativeElement);
-      modal.show();
-    } else {
-      console.error('Modal element não encontrado');
-    }
-  }
+  openModalContato(id: number) {
+    this.idAlterar = id; // Atualiza o ID do usuário
+  
+    setTimeout(() => {
+      const modalElement = document.getElementById('modalContato');
+      if (modalElement) {
+        const modal = new (window as any).bootstrap.Modal(modalElement);
+        // Fecha e reabre o modal para garantir que o ID é atualizado
+        modal.hide();
+        setTimeout(() => modal.show(), 200);
+      } else {
+        console.error('Elemento do modal não encontrado.');
+      }
+    }, 50);
+  }  
+
 
   //Abrir o Modal de Confirmar Acao
   openModalConfirmar() {

@@ -10,7 +10,6 @@ import { ToastComponent } from "../../../tools/toast/toast.component";
   styleUrl: './form-usuario.component.css'
 })
 export class FormUsuarioComponent {
-
   @ViewChild('Toast') toastElement!: ElementRef;
   mostrarSenha = false;
   isLoading = false; //controlar o carregamento
@@ -29,35 +28,33 @@ export class FormUsuarioComponent {
       nome: this.form.value.nome!,
       email: this.form.value.email!,
       senha: this.form.value.senha!
-    };
+    }; //objt a ser enviado para API
   
     this.isLoading = true; // Desativa o botão para evitar spam
   
     this.userService.createUser(user).subscribe({
-      next: () => {
+      next: () => { //apos a requisicao
         this.isLoading = false;
         this.form.reset();
         this.feedbackToast = 'Usuário Cadastrado com Sucesso';
         this.tipoFeedback = 'bg-success';
         this.openModalToastS();
       },
-      error: (err) => {
+      error: (err) => { //caso de erro
         this.isLoading = false;
         console.error("Erro ao cadastrar:", err);
-  
+        //erro comum do usuario
         if (err.status === 401) {
-          this.feedbackToast = 'Não autorizado! Reinicie seu login.';
+          this.feedbackToast = 'Não autorizado! Faça novamente seu login.';
         } else {
           this.feedbackToast = `Ocorreu um erro: ${err.message || 'Erro desconhecido'}`;
         }
-        
         this.tipoFeedback = 'bg-danger';
         this.openModalToastS();
       }
     });
   }
   
-
   openModalToastS() {
     if (this.toastElement) {
       const modal = new (window as any).bootstrap.Toast(this.toastElement.nativeElement);

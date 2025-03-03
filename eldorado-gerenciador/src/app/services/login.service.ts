@@ -13,17 +13,17 @@ export class LoginService {
     //JWT do sistema
     return new Promise((resolve, reject) => {
 
-      // Configurando o corpo da requisição no formato (tava mandando por "usuario" mas retornava sempre 422)
+      //configurando o corpo da requisição no formato (tava mandando o "usuario" mas retornava sempre 422)
       const body = new URLSearchParams();
       body.set('username', usuario.username);
       body.set('password', usuario.password);
 
-      // Configura os headers para x-www-form-urlencoded
+      //configura os headers para x-www-form-urlencoded
       const headers = new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded'
       });
 
-      // Faz a requisição POST
+      //faz a requisição POST
       this.http.post<any>(this.APIBase, body.toString(), { headers }).subscribe({
         next: (response) => {
           console.log('Resposta da API:', response);
