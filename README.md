@@ -53,7 +53,7 @@ O sistema utiliza **Angular v19** para a interface.
 
 ---
 ## Limitações Conhecidas
-- O sistema **não** é totalmente responsivo para dispositivos móveis.
+- O Toast **não** é está responsivo para dispositivos móveis.
 
 ---
 ## Referências e Templates Utilizados
