@@ -11,7 +11,6 @@ export const authGuard: CanActivateFn = (route, state) => {
   if (loginService.isAuthenticated()) {
     return true;
   } else {
-    alert('Sua Sessão foi expirada, por favor refaça o login')
     router.navigate(['login']);
     return false; 
   }

@@ -23,7 +23,7 @@ export class TableUsuarioComponent implements OnChanges {
   feedbackToast = ''; //texto para o toast
   tipoFeedback = ''; //tipo positivo/negativo
   @ViewChild('Toast') toastElement!: ElementRef;
-  
+
   private userService = inject(UsuarioService);
   usuarios: Usuario[] = [];
   @ViewChild('ModalConf') modalElementConfirmar !: ElementRef;
@@ -40,15 +40,41 @@ export class TableUsuarioComponent implements OnChanges {
   carregarUsuarios(): void {
     this.statusTable = 'Carregando Usuários...';
     if (this.secao === 'secao1') {
-      this.userService.listAtivos().subscribe((data) => {
-        this.usuarios = data;
-        this.statusTable = this.usuarios.length ? '' : 'Não há usuários ativos cadastrados :('; //ternario para status
-      });
+      this.userService.listAtivos().subscribe({
+        next: (data) => {
+          this.usuarios = data;
+          this.statusTable = this.usuarios.length ? '' : 'Não há usuários ativos cadastrados :('; //ternario para status
+        },
+        error: (err) => {
+          //erro comum do usuario
+          if (err.status === 401) {
+            this.feedbackToast = 'Sua sessão expirou! Faça novamente seu login.';
+          } else {
+            this.feedbackToast = `Ocorreu um erro: ${err.message || 'Erro desconhecido'}`;
+          }
+          this.tipoFeedback = 'bg-danger';
+          this.openModalToastS();
+        }
+      }
+      );
     } else if (this.secao === 'secao2') {
-      this.userService.listInativos().subscribe((data) => {
-        this.usuarios = data;
-        this.statusTable = this.usuarios.length ? '' : 'Não há usuários inativos cadastrados :('; //ternario para status
-      });
+      this.userService.listInativos().subscribe(
+        {
+          next: (data) => {
+            this.usuarios = data;
+            this.statusTable = this.usuarios.length ? '' : 'Não há usuários inativos cadastrados :('; //ternario para status
+          },
+          error: (err) => {
+            //erro comum do usuario
+            if (err.status === 401) {
+              this.feedbackToast = 'Sua sessão expirou! Faça novamente seu login.';
+            } else {
+              this.feedbackToast = `Ocorreu um erro: ${err.message || 'Erro desconhecido'}`;
+            }
+            this.tipoFeedback = 'bg-danger';
+            this.openModalToastS();
+          }
+        });
     }
   }
 
@@ -89,7 +115,7 @@ export class TableUsuarioComponent implements OnChanges {
         console.error('Elemento do modal não encontrado.');
       }
     }, 50);
-  }  
+  }
 
   //Abrir o Modal de Confirmar Acao
   openModalConfirmar() {
