@@ -5,6 +5,14 @@ nav a{
     font-size: 14px;
 }
 
+/* Quando a tela for menor que 750px*/
+@media (max-width: 770px) {
+    nav a{
+        width: auto;
+        min-width: auto;
+    }
+}
+
 nav a:hover{
     cursor: pointer;
 }

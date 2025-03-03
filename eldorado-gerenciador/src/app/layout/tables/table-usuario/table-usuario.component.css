@@ -1,4 +1,12 @@
 table {
-    width: 800px;
+    width: 800px; /* Define um limite máximo */
     font-size: 13px;
+}
+
+/* Quando a tela for menor que 750*/
+@media (max-width: 770px) {
+    table {
+        width: 100%; 
+        font-size: 11px; 
+    }
 }
