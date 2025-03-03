@@ -4,7 +4,7 @@ Este projeto foi desenvolvido como parte de uma avaliação técnica, com o obje
 O sistema utiliza **Angular v19** para a interface.
 
 ## Interface
-![Image](https://github.com/user-attachments/assets/1d3e4976-5e90-4a5a-b914-7ff3f7e0a0ed)
+![Image](https://github.com/user-attachments/assets/3da1e906-d60a-4b49-be5a-904ca4273b3c)
 
 ---
 ## Instalação e Execução
