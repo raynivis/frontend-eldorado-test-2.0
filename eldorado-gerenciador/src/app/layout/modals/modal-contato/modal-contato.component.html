@@ -1,4 +1,4 @@
-<!-- Modal -->
+<!-- Optei em usar um modal para a adicao dos contatos do usuario -->
 <div class="modal-dialog modal-lg modal-dialog-scrollable">
     <div class="modal-content">
         <div class="d-flex justify-content-end">
@@ -6,28 +6,16 @@
         </div>
         <div class="modal-header">
             <div class="w-100">
-                <app-nav-view secao1="Contatos" secao2="Cadastrar Novo Contato" caminhoRouter="modal"
-                    (modalRouter)="secaoAtual = $event">
-                </app-nav-view>
+                <div class="d-flex justify-content-center text-center">
+                    <h6 class="titulo-form">Cadastrar Contato</h6>
+                </div>
             </div>
         </div>
         <div class="modal-body mb-5">
-            @if(secaoAtual === 'secao1') {
-                <!--Contatos que estão ativos-->
-                <h6 class="text-center">Contatos Ativos</h6>
-                <app-table-contato tipo="ativo"></app-table-contato>
-
-                <!--Contatos que estão desativos-->
-                <h6 class="text-center mt-4">Contatos Inativos</h6>
-                <app-table-contato></app-table-contato>
-            }
-            @else {
-                <section class="container">
-                    <app-form-contato></app-form-contato>
-                </section>
-            }
-
+            <section class="container">
+                <!--Fromulario de criacao de contatos-->
+                <app-form-contato [idUsuario]="idUsuario"></app-form-contato>
+            </section>
         </div>
-        
     </div>
 </div>

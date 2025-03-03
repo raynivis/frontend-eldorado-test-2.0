@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TableContatoComponent } from './table-contato.component';
+import { ContatosComponent } from './contatos.component';
 
-describe('TableContatoComponent', () => {
-  let component: TableContatoComponent;
-  let fixture: ComponentFixture<TableContatoComponent>;
+describe('ContatosComponent', () => {
+  let component: ContatosComponent;
+  let fixture: ComponentFixture<ContatosComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TableContatoComponent]
+      imports: [ContatosComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TableContatoComponent);
+    fixture = TestBed.createComponent(ContatosComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

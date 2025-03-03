@@ -1,0 +1,17 @@
+.form-control {
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+div .btn {
+    background-color: #054A29;
+    color: white;
+    padding: 10px 30px 10px 30px;
+    font-size: 12px;  
+}
+
+.ajuda-msg {
+    color: #2D885D;
+    text-decoration: underline;
+}
+

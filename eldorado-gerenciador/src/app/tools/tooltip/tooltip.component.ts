@@ -6,6 +6,10 @@ import { Component, Input, HostListener } from '@angular/core';
   styleUrls: ['./tooltip.component.css']
 })
 export class TooltipComponent {
+
+  //Implementei um ToolTip pelo Angular mesmo
+  //O motivo é a liberdade de personalizacao
+  
   @Input() texto = ''; 
   @Input() position: 'top' | 'bottom' = 'top'; //posição padrao para o tooltip: cima
   isVisible = false;

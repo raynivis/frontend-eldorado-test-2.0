@@ -1,3 +1,8 @@
+@if(usuarios.length === 0)
+{
+<app-table-status [status]="statusTable"></app-table-status>
+}
+@else {
 <table class="table table-hover table-center mb-0">
     <thead>
         <tr>
@@ -7,40 +12,58 @@
         </tr>
     </thead>
     <tbody>
+        @for(usuario of usuarios; track $index) {
         <tr>
-            <td>Risa D. Pearson</td>
-            <td>ia&#64;email.com</td>
+            <td>{{usuario.nome}}</td>
+            <td>{{usuario.email}}</td>
             <td>
                 @if (secao === 'secao1') {
-                    <app-tooltip texto="Desativar Usuário" position="top">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#e74c3c"
-                            class="m-1 material-icons bi bi-x-circle-fill" viewBox="0 0 16 16">
-                            <path
-                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z" />
-                        </svg>
-                    </app-tooltip>
+                <app-tooltip texto="Desativar Usuário" position="top">
+                    <svg (click)="confDesativar(usuario.id)" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        fill="#e74c3c" class="m-1 material-icons bi bi-x-circle-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z" />
+                    </svg>
+                </app-tooltip>
                 }
                 @else {
-                    <app-tooltip texto="Ativar Usuário" position="top">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#179C4F"
-                            class="m-1 material-icons bi bi-check-circle-fill" viewBox="0 0 16 16">
-                            <path
-                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
-                        </svg>
-                    </app-tooltip>
-                }
-                <app-tooltip texto="Visualizar Contatos" position="top">
-                    <svg (click)="openModal()" xmlns="http://www.w3.org/2000/svg" width="16" height="20" fill="#3498db"
-                        class="m-1 material-icons bi bi-person-lines-fill" viewBox="0 0 16 16">
+                <app-tooltip texto="Ativar Usuário" position="top">
+                    <svg (click)="confAtivar(usuario.id)" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        fill="#179C4F" class="m-1 material-icons bi bi-check-circle-fill" viewBox="0 0 16 16">
                         <path
-                            d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z" />
+                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                    </svg>
+                </app-tooltip>
+                }
+                <app-tooltip texto="Cadastrar Contato" position="top">
+                    <svg (click)="openModalContato(usuario.id)" xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px"
+                        fill="#179C4F" class="m-1 material-icons bi bi-check-circle-fill">
+                        <path
+                            d="M450-483q26-30 40-66.12 14-36.12 14-74.88 0-38.41-14-74.21Q476-734 450-765q8-2 15-2.5t15-.5q60 0 102 42t42 102q0 60-42 102t-102 42q-8 0-15.5-.5T450-483Zm198 291v-92q0-41-19-76.5T576-421q68 16 130 44t62 93v92H648Zm132-240v-84h-84v-72h84v-84h72v84h84v72h-84v84h-72Zm-492-48q-60 0-102-42t-42-102q0-60 42-102t102-42q60 0 102 42t42 102q0 60-42 102t-102 42ZM0-192v-92q0-25.41 12.5-46.7Q25-352 47-366q54-34 115.54-50 61.54-16 125-16T412-415q61 17 117 49 21 14 34 35.3 13 21.29 13 46.7v92H0Zm287.5-360q29.5 0 51-21 21.5-21.01 21.5-50.5 0-29.5-21.5-51t-51-21.5q-29.49 0-50.5 21.5-21 21.5-21 51 0 29.49 21 50.5 21.01 21 50.5 21ZM72-264h432v-20q0-6.07-3-11.03-3-4.97-8-8.97-48-26-99.5-41t-106-15q-54.5 0-106 14.5T83-304q-5 4-8 8.97-3 4.96-3 11.03v20Zm216-360Zm0 360Z" />
                     </svg>
                 </app-tooltip>
             </td>
         </tr>
+        }
     </tbody>
 </table>
+
 <!--Modal do Contatos-->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" #ModalContato> 
-    <app-modal-contato></app-modal-contato>
+@if(idAlterar !== undefined){ <!--evita mandar undefined pro filho-->
+<div class="modal fade" id="modalContato" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <app-modal-contato [idUsuario]="idAlterar"></app-modal-contato>
+</div>
+}
+
+<!--Modal de Confirmar-->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true" #ModalConf>
+    <app-modal-confirm [texto]="textoConfirmar" [acaoContinuar]="alterarStatus.bind(this)"></app-modal-confirm>
+</div>
+}
+
+<!--Toast-->
+<div class="toast position-absolute border-0 top-0 end-0 m-4" role="alert" #Toast> 
+    <app-toast [mensagem]="feedbackToast" [toastClass]="tipoFeedback"></app-toast>   
 </div>
