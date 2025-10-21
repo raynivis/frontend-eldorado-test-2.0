@@ -10,26 +10,25 @@ import { ManagementComponent } from './layout/main-routes/management/management.
 import { authGuard } from './guard/auth-guard.guard';
 
 export const routes: Routes = [
-    {
-        path: '', component: ManagementComponent,
-        children: [
-            {path: '', component: HomeComponent},
-            {path: 'usuarios/:secao', component: UsuariosComponent},
-            {path: 'cadastro_usuario', component: CadastroUsuarioComponent},
-            {path: 'tipos_contato/:secao', component: TiposContatoComponent},
-            {path: 'cadastro_tipo_contato', component: CadastroTipoContatoComponent},
-            {path: 'contatos/:secao', component: ContatosComponent}
-        ],
-        canActivate: [authGuard]
-    },
-    {
-        path: '', component: LoginComponent,
-        children: [
-            {path: '', redirectTo: 'login', pathMatch: 'full'}, //evitar erro do user
-            {path: 'login', component: LoginComponent}
-        ]
-    }
+  {
+    path: '',
+    component: ManagementComponent,
+    children: [
+      { path: '', component: HomeComponent },
+      { path: 'usuarios/cadastro', component: CadastroUsuarioComponent },
+      { path: 'usuarios/:secao', component: UsuariosComponent },
+      { path: 'tipos/cadastro', component: CadastroTipoContatoComponent },
+      { path: 'tipos/:secao', component: TiposContatoComponent },
+      { path: 'contatos/:secao', component: ContatosComponent },
+    ],
+    canActivate: [authGuard],
+  },
+  {
+    path: '',
+    component: LoginComponent,
+    children: [
+      { path: '', redirectTo: 'login', pathMatch: 'full' }, //evitar erro do user
+      { path: 'login', component: LoginComponent },
+    ],
+  },
 ];
-
-
-

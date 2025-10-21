@@ -6,11 +6,11 @@ import { FormContatoComponent } from '../../forms/form-contato/form-contato.comp
   selector: 'app-modal-contato',
   imports: [FormContatoComponent],
   templateUrl: './modal-contato.component.html',
-  styleUrl: './modal-contato.component.css'
+  styleUrl: './modal-contato.component.css',
 })
 export class ModalContatoComponent {
   //Modal para Contatos do Usuario
-  @Input() idUsuario: number|undefined;
+  @Input() idUsuario: number | undefined;
 
-  secaoAtual = 'secao1';
+  secaoAtual = 'ativos';
 }

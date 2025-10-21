@@ -1,61 +1,55 @@
-/*Limitando a main para o roteamento fica agradavel*/
-.main{
-    min-height: 550px;
+.main {
+  min-height: 550px;
 }
 
-/*Definir um padrao*/
-table{
-    max-width: 800px;
+table {
+  max-width: 800px;
 }
 
-/*Formulario usado em varias vezes no cod*/
-.titulo-form{
-    color: #000000;
-    width: 400px;
-    border-bottom: 4px solid #054A29;
+.titulo-form {
+  color: #000000;
+  width: 400px;
+  border-bottom: 4px solid #054a29;
 }
 
 .form-cadastro {
-    font-size: 14px;
-    max-width: 400px;
-    margin: auto;
-    margin-bottom: 50px;
-    border-radius: 10px;
+  font-size: 14px;
+  max-width: 400px;
+  margin: auto;
+  margin-bottom: 50px;
+  border-radius: 10px;
 }
 .form-cadastro h2 {
-    text-align: center;
-    margin-bottom: 20px;
+  text-align: center;
+  margin-bottom: 20px;
 }
 .form-cadastro .form-control {
-    font-size: 14px;
-    margin-bottom: 15px;
+  font-size: 14px;
+  margin-bottom: 15px;
 }
 .form-cadastro .btn {
-    width: 100%;
-    font-size: 14px;
+  width: 100%;
+  font-size: 14px;
 }
 
-.senha{
-    width: auto;
-    height: 10px;
-    color: #6c757d;
-    text-decoration: none;
-    border: none;
-    background-color: white;
+.senha {
+  width: auto;
+  height: 10px;
+  color: #6c757d;
+  text-decoration: none;
+  border: none;
+  background-color: white;
 }
 
 .senha:hover {
-    color: #000;
-    /* Preto ao passar o mouse */
+  color: #000;
 }
 
-/*Icones interativos*/
-.material-icons{
-    transition: transform 0.3s ease, fill 0.3s ease; 
-    cursor: pointer; 
+.material-icons {
+  transition: transform 0.3s ease, fill 0.3s ease;
+  cursor: pointer;
 }
 
 .material-icons:hover {
-    transform: scale(1.2); 
+  transform: scale(1.2);
 }
-

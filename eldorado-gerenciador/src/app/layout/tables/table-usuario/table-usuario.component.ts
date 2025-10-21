@@ -1,17 +1,32 @@
-import { Component, ElementRef, inject, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  inject,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { TooltipComponent } from '../../../tools/tooltip/tooltip.component';
 import { ModalContatoComponent } from '../../modals/modal-contato/modal-contato.component';
 import { ModalConfirmComponent } from '../../modals/modal-confirm/modal-confirm.component';
 import { UsuarioService } from '../../../services/usuario.service';
 import { Usuario } from '../../../models/usuario-model';
-import { TableStatusComponent } from "../../../tools/table-status/table-status.component";
-import { ToastComponent } from "../../../tools/toast/toast.component";
+import { TableStatusComponent } from '../../../tools/table-status/table-status.component';
+import { ToastComponent } from '../../../tools/toast/toast.component';
 
 @Component({
   selector: 'app-table-usuario',
-  imports: [TooltipComponent, ModalContatoComponent, ModalConfirmComponent, TableStatusComponent, ToastComponent],
+  imports: [
+    TooltipComponent,
+    ModalContatoComponent,
+    ModalConfirmComponent,
+    TableStatusComponent,
+    ToastComponent,
+  ],
   templateUrl: './table-usuario.component.html',
-  styleUrl: './table-usuario.component.css'
+  styleUrl: './table-usuario.component.css',
 })
 export class TableUsuarioComponent implements OnChanges {
   @Input() secao = ''; //secao atual
@@ -26,7 +41,7 @@ export class TableUsuarioComponent implements OnChanges {
 
   private userService = inject(UsuarioService);
   usuarios: Usuario[] = [];
-  @ViewChild('ModalConf') modalElementConfirmar !: ElementRef;
+  @ViewChild('ModalConf') modalElementConfirmar!: ElementRef;
 
   //ao mudar secao do componente
   ngOnChanges(changes: SimpleChanges): void {
@@ -39,42 +54,51 @@ export class TableUsuarioComponent implements OnChanges {
   //carregar os usuarios inativos ou ativos
   carregarUsuarios(): void {
     this.statusTable = 'Carregando Usuários...';
-    if (this.secao === 'secao1') {
+    if (this.secao === 'ativos') {
       this.userService.listAtivos().subscribe({
         next: (data) => {
           this.usuarios = data;
-          this.statusTable = this.usuarios.length ? '' : 'Não há usuários ativos cadastrados :('; //ternario para status
+          this.statusTable = this.usuarios.length
+            ? ''
+            : 'Não há usuários ativos cadastrados :('; //ternario para status
         },
         error: (err) => {
           //erro comum do usuario
           if (err.status === 401) {
-            this.feedbackToast = 'Sua sessão expirou! Faça novamente seu login.';
+            this.feedbackToast =
+              'Sua sessão expirou! Faça novamente seu login.';
           } else {
-            this.feedbackToast = `Ocorreu um erro: ${err.message || 'Erro desconhecido'}`;
+            this.feedbackToast = `Ocorreu um erro: ${
+              err.message || 'Erro desconhecido'
+            }`;
           }
           this.tipoFeedback = 'bg-danger';
           this.openModalToastS();
-        }
-      }
-      );
-    } else if (this.secao === 'secao2') {
-      this.userService.listInativos().subscribe(
-        {
-          next: (data) => {
-            this.usuarios = data;
-            this.statusTable = this.usuarios.length ? '' : 'Não há usuários inativos cadastrados :('; //ternario para status
-          },
-          error: (err) => {
-            //erro comum do usuario
-            if (err.status === 401) {
-              this.feedbackToast = 'Sua sessão expirou! Faça novamente seu login.';
-            } else {
-              this.feedbackToast = `Ocorreu um erro: ${err.message || 'Erro desconhecido'}`;
-            }
-            this.tipoFeedback = 'bg-danger';
-            this.openModalToastS();
+        },
+      });
+    }
+    if (this.secao === 'inativos') {
+      this.userService.listInativos().subscribe({
+        next: (data) => {
+          this.usuarios = data;
+          this.statusTable = this.usuarios.length
+            ? ''
+            : 'Não há usuários inativos cadastrados :('; //ternario para status
+        },
+        error: (err) => {
+          //erro comum do usuario
+          if (err.status === 401) {
+            this.feedbackToast =
+              'Sua sessão expirou! Faça novamente seu login.';
+          } else {
+            this.feedbackToast = `Ocorreu um erro: ${
+              err.message || 'Erro desconhecido'
+            }`;
           }
-        });
+          this.tipoFeedback = 'bg-danger';
+          this.openModalToastS();
+        },
+      });
     }
   }
 
@@ -92,11 +116,13 @@ export class TableUsuarioComponent implements OnChanges {
         if (err.status === 401) {
           this.feedbackToast = 'Não autorizado! Faça novamente seu login.';
         } else {
-          this.feedbackToast = `Ocorreu um erro: ${err.message || 'Erro desconhecido'}`;
+          this.feedbackToast = `Ocorreu um erro: ${
+            err.message || 'Erro desconhecido'
+          }`;
         }
         this.tipoFeedback = 'bg-danger';
         this.openModalToastS();
-      }
+      },
     });
   }
 
@@ -120,7 +146,9 @@ export class TableUsuarioComponent implements OnChanges {
   //Abrir o Modal de Confirmar Acao
   openModalConfirmar() {
     if (this.modalElementConfirmar) {
-      const modal = new (window as any).bootstrap.Modal(this.modalElementConfirmar.nativeElement);
+      const modal = new (window as any).bootstrap.Modal(
+        this.modalElementConfirmar.nativeElement
+      );
       modal.show();
     } else {
       console.error('Modal element não encontrado');
@@ -129,7 +157,9 @@ export class TableUsuarioComponent implements OnChanges {
 
   openModalToastS() {
     if (this.toastElement) {
-      const modal = new (window as any).bootstrap.Toast(this.toastElement.nativeElement);
+      const modal = new (window as any).bootstrap.Toast(
+        this.toastElement.nativeElement
+      );
       modal.show();
     } else {
       console.error('Modal element não encontrado');
@@ -139,16 +169,14 @@ export class TableUsuarioComponent implements OnChanges {
   //Desativar
   confDesativar(id: number) {
     this.idAlterar = id;
-    this.textoConfirmar = "Você deseja mesmo desativar este usuário?";
+    this.textoConfirmar = 'Você deseja mesmo desativar este usuário?';
     this.openModalConfirmar();
   }
 
   //Ativar
   confAtivar(id: number) {
     this.idAlterar = id;
-    this.textoConfirmar = "Você deseja mesmo ativar este usuário?";
+    this.textoConfirmar = 'Você deseja mesmo ativar este usuário?';
     this.openModalConfirmar();
   }
-
-
 }
