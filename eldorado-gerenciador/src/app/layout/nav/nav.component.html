@@ -52,7 +52,7 @@
         xmlns="http://www.w3.org/2000/svg"
         width="18"
         height="18"
-        fill="#E74C3C"
+        fill="#FFFFFF"
         class="material-icons bi bi-box-arrow-right"
         viewBox="0 0 16 16"
       >
@@ -81,6 +81,7 @@
   #ModalConf
 >
   <app-modal-confirm
+    [titulo]="'Confirmação de Logout'"
     [texto]="'Você deseja sair da sua conta?'"
     [acaoContinuar]="sair.bind(this)"
   ></app-modal-confirm>

@@ -32,6 +32,7 @@ export class TableUsuarioComponent implements OnChanges {
   @Input() secao = ''; //secao atual
   @Input() atualizar!: () => void; // Função recebida do pai
   textoConfirmar = ''; // texto de confirmacao modal
+  tituloConfirmar = ''; //titulo para confirmar modal
   statusTable = ''; //status da tabela
 
   idAlterar: undefined | number; //id para mudar o status
@@ -170,6 +171,7 @@ export class TableUsuarioComponent implements OnChanges {
   confDesativar(id: number) {
     this.idAlterar = id;
     this.textoConfirmar = 'Você deseja mesmo desativar este usuário?';
+    this.tituloConfirmar = 'Confirmação de Desativação';
     this.openModalConfirmar();
   }
 
@@ -177,6 +179,7 @@ export class TableUsuarioComponent implements OnChanges {
   confAtivar(id: number) {
     this.idAlterar = id;
     this.textoConfirmar = 'Você deseja mesmo ativar este usuário?';
+    this.tituloConfirmar = 'Confirmação de Ativação';
     this.openModalConfirmar();
   }
 }

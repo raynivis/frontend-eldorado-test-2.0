@@ -1,21 +1,28 @@
 <!-- Optei em usar um modal para a adicao dos contatos do usuario -->
-<div class="modal-dialog modal-lg modal-dialog-scrollable">
-    <div class="modal-content">
-        <div class="d-flex justify-content-end">
-            <button type="button" class="m-2 btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-header">
-            <div class="w-100">
-                <div class="d-flex justify-content-center text-center">
-                    <h6 class="titulo-form">Cadastrar Contato</h6>
-                </div>
-            </div>
-        </div>
-        <div class="modal-body mb-5">
-            <section class="container">
-                <!--Fromulario de criacao de contatos-->
-                <app-form-contato [idUsuario]="idUsuario"></app-form-contato>
-            </section>
-        </div>
+<div
+  class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered"
+>
+  <div class="modal-content">
+    <div class="d-flex justify-content-end">
+      <button
+        type="button"
+        class="m-2 btn-close"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+      ></button>
     </div>
+    <div class="modal-header">
+      <div class="w-100">
+        <div class="d-flex justify-content-center text-center">
+          <h6 class="titulo-form">Cadastrar Contato</h6>
+        </div>
+      </div>
+    </div>
+    <div class="modal-body m-3 my-0">
+      <section class="container">
+        <!--Fromulario de criacao de contatos-->
+        <app-form-contato [idUsuario]="idUsuario"></app-form-contato>
+      </section>
+    </div>
+  </div>
 </div>

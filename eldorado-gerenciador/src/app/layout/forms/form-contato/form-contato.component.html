@@ -1,31 +1,54 @@
-<form [formGroup]="form" (ngSubmit)="cadastrar()" class="form-cadastro">
-    <!--Campo Nome do Contato-->
-    <div class="mb-3">
-        <label for="nome" class="form-label">Nome do Contato</label>
-        <input formControlName="nome" type="text" class="form-control" id="nome" placeholder="Claudia">
-    </div>
-    <!--Campo Select dos Tipos de Contato da API-->
-    <div class="mb-3">
-        <label for="tipo" class="form-label">Tipo de Contato</label>
-        <select formControlName="idtipo" class="form-select form-control" id="tipo">
-            <option value="selecione" selected>Selecione um tipo de Contato</option>
-            @for (tipo of tipos; track $index) {
-                <option [value]="tipo.id">{{tipo.descricao}}</option>
-            }
-        </select>    
-    </div>
-    <!--Campo Contato (Desc)-->
-    <div class="mb-3">
-        <label for="valor" class="form-label">Contato</label>
-        <input formControlName="valor" type="text" class="form-control" id="valor" placeholder="aaa@email.com/18991999999">
-    </div>
-    <button type="submit" class="btn btn-success mt-2" [disabled]="isLoading || form.invalid">Cadastrar Tipo de Contato!</button>
-    @if(form.invalid){
-        <p class="text-end fw-light">Preencha todos os Campos!</p>
-    }
+<form [formGroup]="form" (ngSubmit)="cadastrar()" class="form-cadastro mt-0">
+  <!--Campo Nome do Contato-->
+  <div class="mb-3">
+    <label for="nome" class="form-label">Nome do Contato</label>
+    <input
+      formControlName="nome"
+      type="text"
+      class="form-control"
+      id="nome"
+      placeholder="Claudia"
+    />
+  </div>
+  <!--Campo Select dos Tipos de Contato da API-->
+  <div class="mb-3">
+    <label for="tipo" class="form-label">Tipo de Contato</label>
+    <select formControlName="idtipo" class="form-select form-control" id="tipo">
+      <option value="selecione" selected>Selecione um tipo de Contato</option>
+      @for (tipo of tipos; track $index) {
+      <option [value]="tipo.id">{{ tipo.descricao }}</option>
+      }
+    </select>
+  </div>
+  <!--Campo Contato (Desc)-->
+  <div class="mb-3">
+    <label for="valor" class="form-label">Contato</label>
+    <input
+      formControlName="valor"
+      type="text"
+      class="form-control"
+      id="valor"
+      placeholder="aaa@email.com/18991999999"
+    />
+  </div>
+  <button
+    type="submit"
+    class="btn btn-success mt-2"
+    [disabled]="isLoading || form.invalid"
+  >
+    Cadastrar Contato
+  </button>
+  @if(form.invalid){
+  <p class="text-end fw-light">Preencha todos os Campos!</p>
+  }
 </form>
 
-<!--Toast-->
-<div class="toast position-absolute border-0 top-0 end-0 m-4" role="alert" #Toast> 
-    <app-toast [mensagem]="feedbackToast" [toastClass]="tipoFeedback"></app-toast>   
+<!--Toast (fixo na página, fora do fluxo do modal) -->
+<div
+  class="toast position-fixed border-0 top-0 end-0 m-4"
+  style="z-index: 1081"
+  role="alert"
+  #Toast
+>
+  <app-toast [mensagem]="feedbackToast" [toastClass]="tipoFeedback"></app-toast>
 </div>

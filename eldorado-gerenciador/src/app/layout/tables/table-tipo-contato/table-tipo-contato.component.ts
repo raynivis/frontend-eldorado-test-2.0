@@ -28,6 +28,7 @@ import { ToastComponent } from '../../../tools/toast/toast.component';
 export class TableTipoContatoComponent implements OnChanges {
   @Input() secao = ''; //secao atual
   textoConfirmar = ''; //texto para confirmar modal
+  tituloConfirmar = ''; //titulo para confirmar modal
   statusTable = ''; //status da tabela
 
   idAlterar: undefined | number; //id para mudar o status
@@ -149,6 +150,7 @@ export class TableTipoContatoComponent implements OnChanges {
   ConfDesativar(id: number) {
     this.idAlterar = id;
     this.textoConfirmar = 'Você deseja mesmo desativar este tipo de contato?';
+    this.tituloConfirmar = 'Confirmação de Desativação';
     this.openModalConfirmar();
   }
 
@@ -156,6 +158,7 @@ export class TableTipoContatoComponent implements OnChanges {
   ConfAtivar(id: number) {
     this.idAlterar = id;
     this.textoConfirmar = 'Você deseja mesmo ativar este tipo de contato?';
+    this.tituloConfirmar = 'Confirmação de Ativação';
     this.openModalConfirmar();
   }
 }

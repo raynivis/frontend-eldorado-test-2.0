@@ -1,16 +1,34 @@
 <form [formGroup]="form" (ngSubmit)="cadastrar()" class="form-cadastro">
-    <!--Campo Nome-->
-    <div class="mb-3">
-        <label for="descricao" class="form-label">Nome do novo tipo de contato</label>
-        <input formControlName="descricao" type="text" class="form-control" id="descricao" placeholder="Descrição">
-    </div>
-    <button type="submit" class="btn btn-success mt-2" [disabled]="isLoading || form.invalid">Cadastrar Tipo de Contato!</button>
-    @if(form.invalid){
-        <p class="text-end fw-light">Preencha o Campo!</p>
-    }
+  <!--Campo Nome-->
+  <div class="mb-3">
+    <label for="descricao" class="form-label"
+      >Nome do novo tipo de contato</label
+    >
+    <input
+      formControlName="descricao"
+      type="text"
+      class="form-control"
+      id="descricao"
+      placeholder="Descrição"
+    />
+  </div>
+  <button
+    type="submit"
+    class="btn btn-success mt-2"
+    [disabled]="isLoading || form.invalid"
+  >
+    Cadastrar Tipo de Contato
+  </button>
+  @if(form.invalid){
+  <p class="text-end fw-light">Preencha o Campo!</p>
+  }
 </form>
 
 <!--Toast-->
-<div class="toast position-absolute border-0 top-0 end-0 m-4" role="alert" #Toast> 
-    <app-toast [mensagem]="feedbackToast" [toastClass]="tipoFeedback"></app-toast>   
+<div
+  class="toast position-absolute border-0 top-0 end-0 m-4"
+  role="alert"
+  #Toast
+>
+  <app-toast [mensagem]="feedbackToast" [toastClass]="tipoFeedback"></app-toast>
 </div>

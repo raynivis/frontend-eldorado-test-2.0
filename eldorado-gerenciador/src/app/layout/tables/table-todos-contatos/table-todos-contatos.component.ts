@@ -28,6 +28,7 @@ import { ToastComponent } from '../../../tools/toast/toast.component';
 export class TableTodosContatosComponent implements OnChanges {
   @Input() secao = ''; //secao atual
   textoConfirmar = ''; //texto para confirmar o modal
+  tituloConfirmar = ''; //titulo para confirmar modal
   statusTable = ''; //status da tabela
 
   idAlterar: undefined | number; //id para mudar o status
@@ -150,6 +151,7 @@ export class TableTodosContatosComponent implements OnChanges {
     this.idAlterar = id;
     this.textoConfirmar =
       'Tem certeza de que deseja desativar este contato sem saber a qual usuário ele está relacionado?';
+    this.tituloConfirmar = 'Confirmação de Desativação';
     this.openModalConfirmar();
   }
 
@@ -158,6 +160,7 @@ export class TableTodosContatosComponent implements OnChanges {
     this.idAlterar = id;
     this.textoConfirmar =
       'Tem certeza de que deseja ativar este contato sem saber a qual usuário ele está relacionado?';
+    this.tituloConfirmar = 'Confirmação de Ativação';
     this.openModalConfirmar();
   }
 }
