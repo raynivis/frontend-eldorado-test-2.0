@@ -93,6 +93,7 @@
           [roundDomains]="true"
           [timeline]="false"
           [scheme]="colorScheme"
+          [tooltipDisabled]="false"
         ></ngx-charts-line-chart>
         }
       </div>
@@ -103,21 +104,27 @@
     <div class="col-12 col-lg-6">
       <div class="card shadow-sm py-2 overflow-hidden h-100">
         <h6 class="px-2 pt-2">Contatos por status</h6>
-        <ngx-charts-advanced-pie-chart
+        <ngx-charts-pie-chart
           [results]="contatosStatusPie"
           [scheme]="colorScheme"
           [gradient]="false"
-        ></ngx-charts-advanced-pie-chart>
+          [tooltipDisabled]="false"
+          [legend]="true"
+          [legendTitle]="'Status'"
+        ></ngx-charts-pie-chart>
       </div>
     </div>
     <div class="col-12 col-lg-6">
       <div class="card shadow-sm py-2 overflow-hidden h-100">
         <h6 class="px-2 pt-2">Tipos de contato por status</h6>
-        <ngx-charts-advanced-pie-chart
+        <ngx-charts-pie-chart
           [results]="tiposStatusPie"
           [scheme]="colorScheme"
           [gradient]="false"
-        ></ngx-charts-advanced-pie-chart>
+          [tooltipDisabled]="false"
+          [legend]="true"
+          [legendTitle]="'Status'"
+        ></ngx-charts-pie-chart>
       </div>
     </div>
   </div>
@@ -135,6 +142,7 @@
           [yAxis]="true"
           [roundDomains]="true"
           [scheme]="colorScheme"
+          [tooltipDisabled]="false"
         ></ngx-charts-bar-vertical-stacked>
       </div>
     </div>
@@ -150,6 +158,7 @@
           [xAxis]="true"
           [yAxis]="true"
           [scheme]="colorScheme"
+          [tooltipDisabled]="false"
         ></ngx-charts-bar-horizontal>
       </div>
     </div>

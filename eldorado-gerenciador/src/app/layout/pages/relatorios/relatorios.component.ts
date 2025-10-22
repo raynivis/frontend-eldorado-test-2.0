@@ -62,6 +62,13 @@ export class RelatoriosComponent implements OnInit {
     domain: ['#054A29', '#CBDB2A', '#6C757D'],
   };
 
+  tooltipText(data: any): string {
+    if (data.value === 0) {
+      return '';
+    }
+    return `${data.series}: ${data.value}`;
+  }
+
   ngOnInit(): void {
     this.http.get<any>('relatorios/avaliacao.json').subscribe((data) => {
       this.montarDados(data);
@@ -135,10 +142,12 @@ export class RelatoriosComponent implements OnInit {
       const serie = s.find((x: any) => x.chave === key);
       return {
         name: label,
-        series: (serie?.pontos || []).map((p: any) => ({
-          name: p.mes,
-          value: p[this.metricaSelecionada] ?? 0,
-        })),
+        series: (serie?.pontos || [])
+          .map((p: any) => ({
+            name: p.mes,
+            value: p[this.metricaSelecionada] ?? 0,
+          }))
+          .filter((point: any) => point.value !== 0),
       };
     };
 
