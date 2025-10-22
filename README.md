@@ -3,9 +3,6 @@
 Este projeto foi desenvolvido como parte de uma avaliação técnica, com o objetivo de criar uma aplicação web que consuma a API fornecida, implementando todas as funcionalidades descritas na documentação.
 O sistema utiliza **Angular v19** para a interface.
 
-## Interface
-![Image](https://github.com/user-attachments/assets/3da1e906-d60a-4b49-be5a-904ca4273b3c)
-
 ---
 ## Instalação e Execução
 1. Navegue até a pasta do projeto: `eldorado-gerenciador/`
@@ -51,11 +48,36 @@ O sistema utiliza **Angular v19** para a interface.
 - Listar contatos inativos *(GET /contatos/inativos/)*
 - Ativar contatos *(PUT /contato/{contato_id}/status/)*
 
----
-## Limitações Conhecidas
-- O Toast **não** é está responsivo para dispositivos móveis.
+ ### **Relatórios**
+ O relatório deve conter:
+1. Título e período de referência, indicando o intervalo de tempo e a
+granularidade (ex.: mensal, anual).
+2. Totais consolidados de contatos e tipos, incluindo valores absolutos e variações
+percentuais em relação ao período anterior.
+3. Quebras de dados (agregações) por:
+o Status dos contatos (ativos x inativos)
+o Tipo de contato (Cliente, Fornecedor, Parceiro etc.)
+o Situação dos tipos (ativos x inativos)
+4. Séries temporais representando a evolução mensal da quantidade de contatos,
+destacando:
+o Total de contatos
+o Contatos ativos
+o Contatos inativos
+o Novos cadastros no mês
+o Variações mensais (delta) em relação ao mês anterior
+5. Top indicadores — como o crescimento de cada tipo de contato no período.
 
----
+Os dados devem ser apresentados em gráficos de acordo com o contexto:
+
+ Série temporal (linha) para evolução dos contatos ao longo dos meses.
+
+ Pizza ou donut para distribuição por status.
+
+ Barras empilhadas para comparação entre tipos e status.
+
+ Barras horizontais para exibir o ranking de crescimento por tipo.
+
+
 ## Referências e Templates Utilizados
 - Logo: [Flaticon](https://cdn-icons-png.flaticon.com/512/9131/9131478.png)
 - Footer: [CodePen Template](https://codepen.io/scanfcode/pen/MEZPNd)
