@@ -132,7 +132,21 @@
   <div class="row g-3 my-2">
     <div class="col-12">
       <div class="card shadow-sm py-2 overflow-hidden">
-        <h6 class="px-2 pt-2">Contatos por tipo de contato</h6>
+        <div
+          class="d-flex justify-content-between align-items-center px-2 pt-2 mb-2"
+        >
+          <h6 class="mb-0">Contatos por tipo de contato</h6>
+          <select
+            class="form-select form-select-sm"
+            style="width: auto"
+            [(ngModel)]="visualizacaoTipos"
+            (change)="onVisualizacaoTiposChange($event)"
+          >
+            <option value="status">Por Status</option>
+            <option value="total">Valor Total</option>
+          </select>
+        </div>
+        @if (showChartTipos && visualizacaoTipos === 'status') {
         <ngx-charts-bar-vertical-stacked
           [results]="tiposStacked"
           [legend]="true"
@@ -144,6 +158,18 @@
           [scheme]="colorScheme"
           [tooltipDisabled]="false"
         ></ngx-charts-bar-vertical-stacked>
+        } @if (showChartTipos && visualizacaoTipos === 'total') {
+        <ngx-charts-bar-vertical
+          [results]="tiposStacked"
+          [xAxis]="true"
+          [yAxis]="true"
+          [roundDomains]="true"
+          [scheme]="colorScheme"
+          [tooltipDisabled]="false"
+          [legendTitle]="'Status'"
+          [legendPosition]="legendPosition"
+        ></ngx-charts-bar-vertical>
+        }
       </div>
     </div>
   </div>

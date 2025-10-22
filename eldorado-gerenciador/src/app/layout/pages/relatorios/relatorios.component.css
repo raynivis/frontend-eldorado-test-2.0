@@ -9,7 +9,8 @@
 .relatorios-page ngx-charts-line-chart,
 .relatorios-page ngx-charts-pie-chart,
 .relatorios-page ngx-charts-bar-vertical-stacked,
-.relatorios-page ngx-charts-bar-horizontal {
+.relatorios-page ngx-charts-bar-horizontal,
+.relatorios-page ngx-charts-bar-vertical {
   display: block;
   width: 100%;
 }

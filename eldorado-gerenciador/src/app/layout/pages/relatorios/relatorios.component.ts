@@ -44,8 +44,11 @@ export class RelatoriosComponent implements OnInit {
   topCrescimento: any[] = [];
 
   metricaSelecionada: 'valor' | 'novos' | 'delta' = 'valor';
+  visualizacaoTipos: 'status' | 'total' = 'status';
+  contatosPorTipoData: any[] = [];
   seriesTemporaisData: any = null;
   showChart = true;
+  showChartTipos = true;
 
   showLegend = true;
   showXAxis = true;
@@ -114,15 +117,8 @@ export class RelatoriosComponent implements OnInit {
       })
     );
 
-    this.tiposStacked = (data?.quebras?.contatos_por_tipo || []).map(
-      (t: any) => ({
-        name: t.titulo_tipo,
-        series: [
-          { name: 'Ativos', value: t.ativos },
-          { name: 'Inativos', value: t.inativos },
-        ],
-      })
-    );
+    this.contatosPorTipoData = data?.quebras?.contatos_por_tipo || [];
+    this.atualizarGraficoTipos();
 
     const s = data?.series_temporais?.series || [];
     this.seriesTemporaisData = s;
@@ -166,6 +162,33 @@ export class RelatoriosComponent implements OnInit {
     const select = event.target as HTMLSelectElement;
     this.metricaSelecionada = select.value as 'valor' | 'novos' | 'delta';
     this.atualizarGraficoLinha();
+  }
+
+  atualizarGraficoTipos(): void {
+    this.showChartTipos = false;
+    setTimeout(() => {
+      if (this.visualizacaoTipos === 'status') {
+        this.tiposStacked = this.contatosPorTipoData.map((t: any) => ({
+          name: t.titulo_tipo,
+          series: [
+            { name: 'Ativos', value: t.ativos },
+            { name: 'Inativos', value: t.inativos },
+          ],
+        }));
+      } else {
+        this.tiposStacked = this.contatosPorTipoData.map((t: any) => ({
+          name: t.titulo_tipo,
+          value: t.total,
+        }));
+      }
+      this.showChartTipos = true;
+    }, 0);
+  }
+
+  onVisualizacaoTiposChange(event: Event): void {
+    const select = event.target as HTMLSelectElement;
+    this.visualizacaoTipos = select.value as 'status' | 'total';
+    this.atualizarGraficoTipos();
   }
 
   private capitalize(s: string) {
