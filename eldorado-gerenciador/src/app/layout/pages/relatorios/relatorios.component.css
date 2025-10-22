@@ -1,4 +1,7 @@
-/* Simple spacing and responsive tweaks for charts */
+.container.relatorios-page {
+  max-width: 1100px;
+}
+
 .relatorios-page .card {
   border: 0;
   border-radius: 0.5rem;
@@ -10,7 +13,8 @@
 .relatorios-page ngx-charts-line-chart,
 .relatorios-page ngx-charts-pie-chart,
 .relatorios-page ngx-charts-bar-vertical-stacked,
-.relatorios-page ngx-charts-bar-horizontal {
+.relatorios-page ngx-charts-bar-horizontal,
+.relatorios-page ngx-charts-bar-vertical {
   display: block;
   width: 100%;
 }

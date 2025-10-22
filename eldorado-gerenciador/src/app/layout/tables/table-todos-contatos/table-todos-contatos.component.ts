@@ -12,16 +12,11 @@ import { ModalConfirmComponent } from '../../modals/modal-confirm/modal-confirm.
 import { Contato } from '../../../models/contato-model';
 import { ContatoService } from '../../../services/contato.service';
 import { TableStatusComponent } from '../../../tools/table-status/table-status.component';
-import { ToastComponent } from '../../../tools/toast/toast.component';
+import { ToastService } from '../../../services/toast.service';
 
 @Component({
   selector: 'app-table-todos-contatos',
-  imports: [
-    TooltipComponent,
-    ModalConfirmComponent,
-    TableStatusComponent,
-    ToastComponent,
-  ],
+  imports: [TooltipComponent, ModalConfirmComponent, TableStatusComponent],
   templateUrl: './table-todos-contatos.component.html',
   styleUrl: './table-todos-contatos.component.css',
 })
@@ -32,11 +27,9 @@ export class TableTodosContatosComponent implements OnChanges {
   statusTable = ''; //status da tabela
 
   idAlterar: undefined | number; //id para mudar o status
-  feedbackToast = ''; //texto para o toast
-  tipoFeedback = ''; //tipo positivo/negativo
-  @ViewChild('Toast') toastElement!: ElementRef;
 
   private contactService = inject(ContatoService);
+  private toastService = inject(ToastService);
   contatos: Contato[] = [];
   @ViewChild('ModalConf') modalElementConfirmar!: ElementRef;
 
@@ -62,15 +55,14 @@ export class TableTodosContatosComponent implements OnChanges {
         error: (err) => {
           //erro comum do usuario
           if (err.status === 401) {
-            this.feedbackToast =
-              'Sua sessão expirou! Faça novamente seu login.';
+            this.toastService.error(
+              'Sua sessão expirou! Faça novamente seu login.'
+            );
           } else {
-            this.feedbackToast = `Ocorreu um erro: ${
-              err.message || 'Erro desconhecido'
-            }`;
+            this.toastService.error(
+              `Ocorreu um erro: ${err.message || 'Erro desconhecido'}`
+            );
           }
-          this.tipoFeedback = 'bg-danger';
-          this.openModalToastS();
         },
       });
     }
@@ -85,15 +77,14 @@ export class TableTodosContatosComponent implements OnChanges {
         error: (err) => {
           //erro comum do usuario
           if (err.status === 401) {
-            this.feedbackToast =
-              'Sua sessão expirou! Faça novamente seu login.';
+            this.toastService.error(
+              'Sua sessão expirou! Faça novamente seu login.'
+            );
           } else {
-            this.feedbackToast = `Ocorreu um erro: ${
-              err.message || 'Erro desconhecido'
-            }`;
+            this.toastService.error(
+              `Ocorreu um erro: ${err.message || 'Erro desconhecido'}`
+            );
           }
-          this.tipoFeedback = 'bg-danger';
-          this.openModalToastS();
         },
       });
     }
@@ -103,22 +94,18 @@ export class TableTodosContatosComponent implements OnChanges {
   alterarStatus() {
     this.contactService.updateStatusContact(this.idAlterar!).subscribe({
       next: () => {
-        this.feedbackToast = 'Contato alterado com sucesso';
-        this.tipoFeedback = 'bg-success';
-        this.openModalToastS();
+        this.toastService.success('Contato alterado com sucesso');
         this.carregarContatos(); // recarrega a lista de contatos apos a alteracao
       },
       error: (err) => {
         //erro comum do usuario
         if (err.status === 401) {
-          this.feedbackToast = 'Não autorizado! Faça novamente seu login.';
+          this.toastService.error('Não autorizado! Faça novamente seu login.');
         } else {
-          this.feedbackToast = `Ocorreu um erro: ${
-            err.message || 'Erro desconhecido'
-          }`;
+          this.toastService.error(
+            `Ocorreu um erro: ${err.message || 'Erro desconhecido'}`
+          );
         }
-        this.tipoFeedback = 'bg-danger';
-        this.openModalToastS();
       },
     });
   }
@@ -128,17 +115,6 @@ export class TableTodosContatosComponent implements OnChanges {
     if (this.modalElementConfirmar) {
       const modal = new (window as any).bootstrap.Modal(
         this.modalElementConfirmar.nativeElement
-      );
-      modal.show();
-    } else {
-      console.error('Modal element não encontrado');
-    }
-  }
-
-  openModalToastS() {
-    if (this.toastElement) {
-      const modal = new (window as any).bootstrap.Toast(
-        this.toastElement.nativeElement
       );
       modal.show();
     } else {

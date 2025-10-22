@@ -1,22 +1,20 @@
-import { Component, ElementRef, inject, ViewChild } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UsuarioService } from '../../../services/usuario.service';
-import { ToastComponent } from '../../../tools/toast/toast.component';
+import { ToastService } from '../../../services/toast.service';
 
 @Component({
   selector: 'app-form-usuario',
-  imports: [ReactiveFormsModule, ToastComponent],
+  imports: [ReactiveFormsModule],
   templateUrl: './form-usuario.component.html',
   styleUrl: './form-usuario.component.css',
 })
 export class FormUsuarioComponent {
-  @ViewChild('Toast') toastElement!: ElementRef;
   mostrarSenha = false;
   isLoading = false; //controlar o carregamento
-  feedbackToast = '';
-  tipoFeedback = '';
   private readonly fB = inject(FormBuilder);
   private readonly userService = inject(UsuarioService);
+  private readonly toastService = inject(ToastService);
   form = this.fB.group({
     nome: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
@@ -37,36 +35,21 @@ export class FormUsuarioComponent {
         //apos a requisicao
         this.isLoading = false;
         this.form.reset();
-        this.feedbackToast = 'Usuário Cadastrado com Sucesso';
-        this.tipoFeedback = 'bg-success';
-        this.openModalToastS();
+        this.toastService.success('Usuário Cadastrado com Sucesso');
       },
       error: (err) => {
         //caso de erro
         this.isLoading = false;
         //erro comum do usuario
         if (err.status === 401) {
-          this.feedbackToast = 'Não autorizado! Faça novamente seu login.';
+          this.toastService.error('Não autorizado! Faça novamente seu login.');
         } else {
-          this.feedbackToast = `Ocorreu um erro: ${
-            err.message || 'Erro desconhecido'
-          }`;
+          this.toastService.error(
+            `Ocorreu um erro: ${err.message || 'Erro desconhecido'}`
+          );
         }
-        this.tipoFeedback = 'bg-danger';
-        this.openModalToastS();
       },
     });
-  }
-
-  openModalToastS() {
-    if (this.toastElement) {
-      const modal = new (window as any).bootstrap.Toast(
-        this.toastElement.nativeElement
-      );
-      modal.show();
-    } else {
-      console.error('Modal element não encontrado');
-    }
   }
 
   toggleSenha() {
