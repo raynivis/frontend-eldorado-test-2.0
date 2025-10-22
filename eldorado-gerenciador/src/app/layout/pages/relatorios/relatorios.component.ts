@@ -1,5 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule, formatDate } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import {
   NgxChartsModule,
   ScaleType,
@@ -10,7 +11,7 @@ import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-relatorios',
-  imports: [CommonModule, NgxChartsModule],
+  imports: [CommonModule, NgxChartsModule, FormsModule],
   templateUrl: './relatorios.component.html',
   styleUrl: './relatorios.component.css',
 })
@@ -41,6 +42,10 @@ export class RelatoriosComponent implements OnInit {
   tiposStacked: any[] = [];
   seriesLine: any[] = [];
   topCrescimento: any[] = [];
+
+  metricaSelecionada: 'valor' | 'novos' | 'delta' = 'valor';
+  seriesTemporaisData: any = null;
+  showChart = true;
 
   showLegend = true;
   showXAxis = true;
@@ -113,21 +118,8 @@ export class RelatoriosComponent implements OnInit {
     );
 
     const s = data?.series_temporais?.series || [];
-    const toSeries = (key: string, label: string) => {
-      const serie = s.find((x: any) => x.chave === key);
-      return {
-        name: label,
-        series: (serie?.pontos || []).map((p: any) => ({
-          name: p.mes,
-          value: p.valor,
-        })),
-      };
-    };
-    this.seriesLine = [
-      toSeries('total', 'Total'),
-      toSeries('ativos', 'Ativos'),
-      toSeries('inativos', 'Inativos'),
-    ];
+    this.seriesTemporaisData = s;
+    this.atualizarGraficoLinha();
 
     this.topCrescimento = (data?.top?.tipos_por_crescimento || []).map(
       (t: any) => ({
@@ -135,6 +127,36 @@ export class RelatoriosComponent implements OnInit {
         value: t.crescimento_no_periodo,
       })
     );
+  }
+
+  atualizarGraficoLinha(): void {
+    const s = this.seriesTemporaisData || [];
+    const toSeries = (key: string, label: string) => {
+      const serie = s.find((x: any) => x.chave === key);
+      return {
+        name: label,
+        series: (serie?.pontos || []).map((p: any) => ({
+          name: p.mes,
+          value: p[this.metricaSelecionada] ?? 0,
+        })),
+      };
+    };
+
+    this.showChart = false;
+    setTimeout(() => {
+      this.seriesLine = [
+        toSeries('total', 'Total'),
+        toSeries('ativos', 'Ativos'),
+        toSeries('inativos', 'Inativos'),
+      ];
+      this.showChart = true;
+    }, 0);
+  }
+
+  onMetricaChange(event: Event): void {
+    const select = event.target as HTMLSelectElement;
+    this.metricaSelecionada = select.value as 'valor' | 'novos' | 'delta';
+    this.atualizarGraficoLinha();
   }
 
   private capitalize(s: string) {

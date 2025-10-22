@@ -45,7 +45,22 @@
   <div class="row g-3 mb-2">
     <div class="col-12">
       <div class="card shadow-sm py-2 overflow-hidden">
-        <h6 class="px-2 pt-2">Evolução mensal de contatos</h6>
+        <div
+          class="d-flex justify-content-between align-items-center px-2 pt-2 mb-2"
+        >
+          <h6 class="mb-0">Evolução mensal de contatos</h6>
+          <select
+            class="form-select form-select-sm"
+            style="width: auto"
+            [(ngModel)]="metricaSelecionada"
+            (change)="onMetricaChange($event)"
+          >
+            <option value="valor">Valor Total</option>
+            <option value="novos">Novos</option>
+            <option value="delta">Delta (Variação)</option>
+          </select>
+        </div>
+        @if (showChart) {
         <ngx-charts-line-chart
           [results]="seriesLine"
           [legend]="true"
@@ -58,33 +73,30 @@
           [timeline]="false"
           [scheme]="colorScheme"
         ></ngx-charts-line-chart>
+        }
       </div>
     </div>
   </div>
 
-  <div class="row g-3">
+  <div class="row g-3 justify-content-between">
     <div class="col-12 col-lg-6">
       <div class="card shadow-sm py-2 overflow-hidden h-100">
         <h6 class="px-2 pt-2">Contatos por status</h6>
-        <ngx-charts-pie-chart
+        <ngx-charts-advanced-pie-chart
           [results]="contatosStatusPie"
-          [legend]="true"
-          [legendTitle]="'Status'"
-          [legendPosition]="legendPosition"
           [scheme]="colorScheme"
-        ></ngx-charts-pie-chart>
+          [gradient]="false"
+        ></ngx-charts-advanced-pie-chart>
       </div>
     </div>
     <div class="col-12 col-lg-6">
       <div class="card shadow-sm py-2 overflow-hidden h-100">
         <h6 class="px-2 pt-2">Tipos de contato por status</h6>
-        <ngx-charts-pie-chart
+        <ngx-charts-advanced-pie-chart
           [results]="tiposStatusPie"
-          [legend]="true"
-          [legendTitle]="'Status'"
-          [legendPosition]="legendPosition"
           [scheme]="colorScheme"
-        ></ngx-charts-pie-chart>
+          [gradient]="false"
+        ></ngx-charts-advanced-pie-chart>
       </div>
     </div>
   </div>
