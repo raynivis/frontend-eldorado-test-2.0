@@ -6,6 +6,7 @@ import { TiposContatoComponent } from './layout/pages/tipos-contato/tipos-contat
 import { CadastroTipoContatoComponent } from './layout/pages/cadastro-tipo-contato/cadastro-tipo-contato.component';
 import { ContatosComponent } from './layout/pages/contatos/contatos.component';
 import { LoginComponent } from './layout/pages/login/login.component';
+import { RelatoriosComponent } from './layout/pages/relatorios/relatorios.component';
 import { ManagementComponent } from './layout/main-routes/management/management.component';
 import { authGuard } from './guard/auth-guard.guard';
 
@@ -20,6 +21,7 @@ export const routes: Routes = [
       { path: 'tipos/cadastro', component: CadastroTipoContatoComponent },
       { path: 'tipos/:secao', component: TiposContatoComponent },
       { path: 'contatos/:secao', component: ContatosComponent },
+      { path: 'relatorios', component: RelatoriosComponent },
     ],
     canActivate: [authGuard],
   },

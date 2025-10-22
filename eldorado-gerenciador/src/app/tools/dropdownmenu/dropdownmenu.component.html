@@ -1,12 +1,33 @@
-<li class="dropdown" (mouseenter)="showMenu = true" (mouseleave)="showMenu = false">
-    <a class="nav-link px-2" [routerLink]="tituloLink">{{ titulo }}</a>
-    @if (showMenu) {
-        <ul class="submenu ">
-            @for (option of options; track $index) {
-                <li>
-                    <a class="nav-link px-2 text-start" [routerLink]="option.link">{{option.label}}</a>
-                </li>
-            }         
-        </ul>
+<li
+  class="dropdown"
+  (mouseenter)="showMenu = true"
+  (mouseleave)="showMenu = false"
+  (focusin)="showMenu = true"
+  (focusout)="showMenu = false"
+>
+  <a
+    class="nav-link px-2"
+    [routerLink]="tituloLink"
+    aria-haspopup="true"
+    [attr.aria-expanded]="showMenu"
+  >
+    {{ titulo }}
+  </a>
+
+  @if (showMenu && options.length) {
+  <ul class="submenu" role="menu">
+    @for (option of options; track $index) {
+    <li role="none">
+      <a
+        class="nav-link px-2 text-start"
+        [routerLink]="option.link"
+        role="menuitem"
+        (click)="showMenu = false"
+      >
+        {{ option.label }}
+      </a>
+    </li>
     }
+  </ul>
+  }
 </li>

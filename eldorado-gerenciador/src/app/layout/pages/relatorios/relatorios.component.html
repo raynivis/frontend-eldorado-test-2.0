@@ -1,0 +1,124 @@
+<div class="container my-3 relatorios-page">
+  <div class="mb-3">
+    <div class="w-100">
+      <div class="d-flex justify-content-center text-center">
+        <h6 class="titulo-form">{{ titulo }}</h6>
+      </div>
+    </div>
+    <div class="text-muted small">
+      Período: {{ periodoFormatado }} • Granularidade:
+      {{ granularidadeLabel }} • Gerado em:
+      {{ geradoEmDate | date : "dd/MM/yyyy, HH:mm" }}
+    </div>
+  </div>
+
+  <div class="row g-3 mb-2 align-items-stretch totais-row">
+    <div class="col-12 col-md-3">
+      <div class="card shadow-sm p-3 h-100">
+        <div class="text-muted small">Contatos (total)</div>
+        <div class="h4 mb-0">{{ totalContatos }}</div>
+        <div class="small text-success">
+          +{{ deltaAbs }} ({{ deltaPct }}%) vs período anterior
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card shadow-sm p-3 h-100">
+        <div class="text-muted small">Ativos</div>
+        <div class="h4 mb-0">{{ ativosContatos }}</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card shadow-sm p-3 h-100">
+        <div class="text-muted small">Inativos</div>
+        <div class="h4 mb-0">{{ inativosContatos }}</div>
+      </div>
+    </div>
+    <div class="col-12 col-md-3">
+      <div class="card shadow-sm p-3 h-100">
+        <div class="text-muted small">Novos no período</div>
+        <div class="h4 mb-0">{{ novosNoPeriodo }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3 mb-2">
+    <div class="col-12">
+      <div class="card shadow-sm py-2 overflow-hidden">
+        <h6 class="px-2 pt-2">Evolução mensal de contatos</h6>
+        <ngx-charts-line-chart
+          [results]="seriesLine"
+          [legend]="true"
+          [legendTitle]="'Legenda'"
+          [legendPosition]="legendPosition"
+          [xAxis]="true"
+          [yAxis]="true"
+          [autoScale]="true"
+          [roundDomains]="true"
+          [timeline]="false"
+          [scheme]="colorScheme"
+        ></ngx-charts-line-chart>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-12 col-lg-6">
+      <div class="card shadow-sm py-2 overflow-hidden h-100">
+        <h6 class="px-2 pt-2">Contatos por status</h6>
+        <ngx-charts-pie-chart
+          [results]="contatosStatusPie"
+          [legend]="true"
+          [legendTitle]="'Status'"
+          [legendPosition]="legendPosition"
+          [scheme]="colorScheme"
+        ></ngx-charts-pie-chart>
+      </div>
+    </div>
+    <div class="col-12 col-lg-6">
+      <div class="card shadow-sm py-2 overflow-hidden h-100">
+        <h6 class="px-2 pt-2">Tipos de contato por status</h6>
+        <ngx-charts-pie-chart
+          [results]="tiposStatusPie"
+          [legend]="true"
+          [legendTitle]="'Status'"
+          [legendPosition]="legendPosition"
+          [scheme]="colorScheme"
+        ></ngx-charts-pie-chart>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3 my-2">
+    <div class="col-12">
+      <div class="card shadow-sm py-2 overflow-hidden">
+        <h6 class="px-2 pt-2">Contatos por tipo de contato</h6>
+        <ngx-charts-bar-vertical-stacked
+          [results]="tiposStacked"
+          [legend]="true"
+          [legendTitle]="'Status'"
+          [legendPosition]="legendPosition"
+          [xAxis]="true"
+          [yAxis]="true"
+          [roundDomains]="true"
+          [scheme]="colorScheme"
+        ></ngx-charts-bar-vertical-stacked>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3 my-2">
+    <div class="col-12">
+      <div class="card shadow-sm py-2 overflow-hidden bx-5">
+        <h6 class="px-2 pt-2">Ranking de crescimento por tipo de contato</h6>
+        <ngx-charts-bar-horizontal
+          [results]="topCrescimento"
+          [legend]="false"
+          [xAxis]="true"
+          [yAxis]="true"
+          [scheme]="colorScheme"
+        ></ngx-charts-bar-horizontal>
+      </div>
+    </div>
+  </div>
+</div>
