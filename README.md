@@ -1,4 +1,4 @@
-# Eldorado Brasil - Gerenciador de Usuários
+# Eldorado Brasil - Gerenciador de Usuários 2.0
 
 Este projeto foi desenvolvido como parte de uma avaliação técnica, com o objetivo de criar uma aplicação web que consuma a API fornecida, implementando todas as funcionalidades descritas na documentação.
 O sistema utiliza **Angular v19** para a interface.
@@ -69,13 +69,13 @@ o Variações mensais (delta) em relação ao mês anterior
 
 Os dados devem ser apresentados em gráficos de acordo com o contexto:
 
- Série temporal (linha) para evolução dos contatos ao longo dos meses.
+- Série temporal (linha) para evolução dos contatos ao longo dos meses.
 
- Pizza ou donut para distribuição por status.
+- Pizza ou donut para distribuição por status.
 
- Barras empilhadas para comparação entre tipos e status.
+- Barras empilhadas para comparação entre tipos e status.
 
- Barras horizontais para exibir o ranking de crescimento por tipo.
+- Barras horizontais para exibir o ranking de crescimento por tipo.
 
 
 ## Referências e Templates Utilizados
