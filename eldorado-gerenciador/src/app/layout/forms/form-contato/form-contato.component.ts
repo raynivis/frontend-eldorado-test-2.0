@@ -1,33 +1,23 @@
-import {
-  Component,
-  ElementRef,
-  inject,
-  Input,
-  input,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ContatoService } from '../../../services/contato.service';
-import { ToastComponent } from '../../../tools/toast/toast.component';
+import { ToastService } from '../../../services/toast.service';
 import { TipoContatoService } from '../../../services/tipo-contato.service';
 import { TipoContato } from '../../../models/tipo-usuario-model';
 
 @Component({
   selector: 'app-form-contato',
-  imports: [ReactiveFormsModule, ToastComponent],
+  imports: [ReactiveFormsModule],
   templateUrl: './form-contato.component.html',
   styleUrl: './form-contato.component.css',
 })
 export class FormContatoComponent implements OnInit {
   //usar o usuario da lista de usuarios
   @Input() idUsuario: undefined | number;
-  @ViewChild('Toast') toastElement!: ElementRef;
   isLoading = false; //controlar o carregamento
-  feedbackToast = ''; //texto para o toast
-  tipoFeedback = ''; //tipo positivo/negativo
   private readonly fB = inject(FormBuilder);
   private readonly contactService = inject(ContatoService);
+  private readonly toastService = inject(ToastService);
   //para listar o tipo de contato
   private typeService = inject(TipoContatoService);
   tipos: TipoContato[] = [];
@@ -47,9 +37,7 @@ export class FormContatoComponent implements OnInit {
 
   cadastrar() {
     if (this.form.value.idtipo == 'selecione') {
-      this.feedbackToast = 'Selecione um tipo de contato!';
-      this.tipoFeedback = 'bg-danger';
-      this.openModalToastS();
+      this.toastService.error('Selecione um tipo de contato!');
       return;
     }
 
@@ -68,9 +56,7 @@ export class FormContatoComponent implements OnInit {
         this.isLoading = false;
         this.form.reset();
         this.form.patchValue({ idtipo: 'selecione' });
-        this.feedbackToast = 'Contato Cadastrado com Sucesso';
-        this.tipoFeedback = 'bg-success';
-        this.openModalToastS();
+        this.toastService.success('Contato Cadastrado com Sucesso');
       },
       error: (err) => {
         //caso de erro
@@ -78,26 +64,13 @@ export class FormContatoComponent implements OnInit {
         console.error('Erro ao cadastrar:', err);
         //erro comum do usuario
         if (err.status === 401) {
-          this.feedbackToast = 'Não autorizado! Faça novamente seu login.';
+          this.toastService.error('Não autorizado! Faça novamente seu login.');
         } else {
-          this.feedbackToast = `Ocorreu um erro: ${
-            err.message || 'Erro desconhecido'
-          }`;
+          this.toastService.error(
+            `Ocorreu um erro: ${err.message || 'Erro desconhecido'}`
+          );
         }
-        this.tipoFeedback = 'bg-danger';
-        this.openModalToastS();
       },
     });
-  }
-
-  openModalToastS() {
-    if (this.toastElement) {
-      const modal = new (window as any).bootstrap.Toast(
-        this.toastElement.nativeElement
-      );
-      modal.show();
-    } else {
-      console.error('Modal element não encontrado');
-    }
   }
 }

@@ -12,16 +12,11 @@ import { ModalConfirmComponent } from '../../modals/modal-confirm/modal-confirm.
 import { TipoContatoService } from '../../../services/tipo-contato.service';
 import { TipoContato } from '../../../models/tipo-usuario-model';
 import { TableStatusComponent } from '../../../tools/table-status/table-status.component';
-import { ToastComponent } from '../../../tools/toast/toast.component';
+import { ToastService } from '../../../services/toast.service';
 
 @Component({
   selector: 'app-table-tipo-contato',
-  imports: [
-    TooltipComponent,
-    ModalConfirmComponent,
-    TableStatusComponent,
-    ToastComponent,
-  ],
+  imports: [TooltipComponent, ModalConfirmComponent, TableStatusComponent],
   templateUrl: './table-tipo-contato.component.html',
   styleUrl: './table-tipo-contato.component.css',
 })
@@ -32,11 +27,9 @@ export class TableTipoContatoComponent implements OnChanges {
   statusTable = ''; //status da tabela
 
   idAlterar: undefined | number; //id para mudar o status
-  feedbackToast = ''; //texto para o toast
-  tipoFeedback = ''; //tipo positivo/negativo
-  @ViewChild('Toast') toastElement!: ElementRef;
 
   private typeService = inject(TipoContatoService);
+  private toastService = inject(ToastService);
   tipos: TipoContato[] = [];
   @ViewChild('ModalConf') modalElementConfirmar!: ElementRef;
 
@@ -62,15 +55,14 @@ export class TableTipoContatoComponent implements OnChanges {
         error: (err) => {
           //erro comum do usuario
           if (err.status === 401) {
-            this.feedbackToast =
-              'Sua sessão expirou! Faça novamente seu login.';
+            this.toastService.error(
+              'Sua sessão expirou! Faça novamente seu login.'
+            );
           } else {
-            this.feedbackToast = `Ocorreu um erro: ${
-              err.message || 'Erro desconhecido'
-            }`;
+            this.toastService.error(
+              `Ocorreu um erro: ${err.message || 'Erro desconhecido'}`
+            );
           }
-          this.tipoFeedback = 'bg-danger';
-          this.openModalToastS();
         },
       });
     }
@@ -85,15 +77,14 @@ export class TableTipoContatoComponent implements OnChanges {
         error: (err) => {
           //erro comum do usuario
           if (err.status === 401) {
-            this.feedbackToast =
-              'Sua sessão expirou! Faça novamente seu login.';
+            this.toastService.error(
+              'Sua sessão expirou! Faça novamente seu login.'
+            );
           } else {
-            this.feedbackToast = `Ocorreu um erro: ${
-              err.message || 'Erro desconhecido'
-            }`;
+            this.toastService.error(
+              `Ocorreu um erro: ${err.message || 'Erro desconhecido'}`
+            );
           }
-          this.tipoFeedback = 'bg-danger';
-          this.openModalToastS();
         },
       });
     }
@@ -103,22 +94,18 @@ export class TableTipoContatoComponent implements OnChanges {
   alterarStatus() {
     this.typeService.updateStatusType(this.idAlterar!).subscribe({
       next: () => {
-        this.feedbackToast = 'Tipo de contato alterado com sucesso';
-        this.tipoFeedback = 'bg-success';
-        this.openModalToastS();
+        this.toastService.success('Tipo de contato alterado com sucesso');
         this.carregarTipos(); // recarrega a lista de tipos apos a alteracao
       },
       error: (err) => {
         //erro comum do usuario
         if (err.status === 401) {
-          this.feedbackToast = 'Não autorizado! Faça novamente seu login.';
+          this.toastService.error('Não autorizado! Faça novamente seu login.');
         } else {
-          this.feedbackToast = `Ocorreu um erro: ${
-            err.message || 'Erro desconhecido'
-          }`;
+          this.toastService.error(
+            `Ocorreu um erro: ${err.message || 'Erro desconhecido'}`
+          );
         }
-        this.tipoFeedback = 'bg-danger';
-        this.openModalToastS();
       },
     });
   }
@@ -128,17 +115,6 @@ export class TableTipoContatoComponent implements OnChanges {
     if (this.modalElementConfirmar) {
       const modal = new (window as any).bootstrap.Modal(
         this.modalElementConfirmar.nativeElement
-      );
-      modal.show();
-    } else {
-      console.error('Modal element não encontrado');
-    }
-  }
-
-  openModalToastS() {
-    if (this.toastElement) {
-      const modal = new (window as any).bootstrap.Toast(
-        this.toastElement.nativeElement
       );
       modal.show();
     } else {
