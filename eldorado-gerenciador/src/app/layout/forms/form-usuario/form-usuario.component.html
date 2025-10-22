@@ -1,43 +1,67 @@
 <form [formGroup]="form" (ngSubmit)="cadastrar()" class="form-cadastro">
-    <!--Campo Nome-->
-    <div class="mb-3">
-        <label for="name" class="form-label">Nome</label>
-        <input formControlName="nome"  type="text" class="form-control" id="nome" placeholder="Maria" required="true">
-    </div>
-    <!--Campo E-mail-->
-    <div class="mb-3">
-        <label for="email" class="form-label">E-mail</label>
-        <input required formControlName="email" type="email" class="form-control" id="email" placeholder="maria@exemplo.com">
-    </div>
-    <!--Campo Senha-->
-    <div class="mb-3 position-relative">
-        <label for="senha" class="form-label d-flex align-items-center">
-          Senha
-          <button 
-            type="button" 
-            class="senha p-0 ms-2 position-absolute end-0" 
-            (click)="toggleSenha()"
-          >
-            <i [class]="mostrarSenha ? 'bi bi-eye' : 'bi bi-eye-slash'"></i>
-          </button>
-        </label>
-      
-        <input 
-          required
-          formControlName="senha"
-          id="senha"
-          [type]="mostrarSenha ? 'text' : 'password'" 
-          class="form-control"
-          placeholder="******"
-        >
-      </div>      
-    <button type="submit" class="btn btn-success mt-2" [disabled]="isLoading || form.invalid">Cadastrar Usuário!</button>
-    @if(form.invalid){
-      <p class="text-end fw-light">Preencha todos os Campos!</p>
-    }
+  <!--Campo Nome-->
+  <div class="mb-3">
+    <label for="name" class="form-label">Nome</label>
+    <input
+      formControlName="nome"
+      type="text"
+      class="form-control"
+      id="nome"
+      placeholder="Maria"
+      required="true"
+    />
+  </div>
+  <!--Campo E-mail-->
+  <div class="mb-3">
+    <label for="email" class="form-label">E-mail</label>
+    <input
+      required
+      formControlName="email"
+      type="email"
+      class="form-control"
+      id="email"
+      placeholder="maria@exemplo.com"
+    />
+  </div>
+  <!--Campo Senha-->
+  <div class="mb-3 position-relative">
+    <label for="senha" class="form-label d-flex align-items-center">
+      Senha
+      <button
+        type="button"
+        class="senha p-0 ms-2 position-absolute end-0"
+        (click)="toggleSenha()"
+      >
+        <i [class]="mostrarSenha ? 'bi bi-eye' : 'bi bi-eye-slash'"></i>
+      </button>
+    </label>
+
+    <input
+      required
+      formControlName="senha"
+      id="senha"
+      [type]="mostrarSenha ? 'text' : 'password'"
+      class="form-control"
+      placeholder="******"
+    />
+  </div>
+  <button
+    type="submit"
+    class="btn btn-success mt-2"
+    [disabled]="isLoading || form.invalid"
+  >
+    Cadastrar Usuário
+  </button>
+  @if(form.invalid){
+  <p class="text-end fw-light">Preencha todos os Campos!</p>
+  }
 </form>
 
 <!--Toast-->
-<div class="toast position-absolute border-0 top-0 end-0 m-4" role="alert" #Toast> 
-  <app-toast [mensagem]="feedbackToast" [toastClass]="tipoFeedback"></app-toast>   
+<div
+  class="toast position-absolute border-0 top-0 end-0 m-4"
+  role="alert"
+  #Toast
+>
+  <app-toast [mensagem]="feedbackToast" [toastClass]="tipoFeedback"></app-toast>
 </div>

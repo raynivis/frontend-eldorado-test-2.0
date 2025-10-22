@@ -1,14 +1,37 @@
-<div class="msg modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p class="text-center ">{{texto}}</p>
-      </div>
-      <div class="modal-footer d-flex justify-content-center">
-        <button type="button" class="btn btn-success btn-sm"data-bs-dismiss="modal" (click)="continuar()">Confirmar</button>
-        <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Cancelar</button>
-      </div>
+<div
+  class="modal-dialog modal-dialog-centered"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="modalConfirmTitle"
+>
+  <div class="modal-content shadow-lg">
+    <div class="modal-header">
+      <p class="modal-title mb-0 mt-1" id="modalConfirmTitle">
+        {{ titulo }}
+      </p>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="modal"
+        aria-label="Fechar"
+      ></button>
     </div>
+    <div class="modal-body">
+      <p class="mb-0 text-center text-secondary">{{ texto }}</p>
+    </div>
+    <div class="modal-footer justify-content-center gap-2">
+      <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+        Cancelar
+      </button>
+      <button
+        type="button"
+        class="btn btn-success"
+        data-bs-dismiss="modal"
+        (click)="continuar()"
+        autofocus
+      >
+        Confirmar
+      </button>
+    </div>
+  </div>
 </div>

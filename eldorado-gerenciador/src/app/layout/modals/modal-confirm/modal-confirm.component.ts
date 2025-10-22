@@ -4,11 +4,12 @@ import { Component, Input, input } from '@angular/core';
   selector: 'app-modal-confirm',
   imports: [],
   templateUrl: './modal-confirm.component.html',
-  styleUrl: './modal-confirm.component.css'
+  styleUrl: './modal-confirm.component.css',
 })
 export class ModalConfirmComponent {
   //Modal para confirmacoes (UX)
   @Input() texto = '';
+  @Input() titulo = '';
   @Input() acaoContinuar: (() => void) | undefined; //função recebida
 
   continuar() {
@@ -16,5 +17,4 @@ export class ModalConfirmComponent {
       this.acaoContinuar(); //função recebida
     }
   }
-  
 }

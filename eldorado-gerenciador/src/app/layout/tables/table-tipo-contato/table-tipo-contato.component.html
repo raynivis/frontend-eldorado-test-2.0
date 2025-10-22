@@ -1,53 +1,81 @@
-@if(tipos.length === 0)
-{
+@if(tipos.length === 0) {
 <app-table-status [status]="statusTable"></app-table-status>
-}
-@else {
+} @else {
 <table class="table-double table table-hover table-center mb-0">
-    <thead>
-        <tr>
-            <th>Nome do Tipo de Contato</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
-    <tbody>
-        @for (tipo of tipos; track $index) {
-        <tr>
-            <td>{{tipo.descricao}}</td>
-            <td>
-                @if (secao === 'secao1') {
-                <app-tooltip texto="Desativar Tipo de Contato" position="top">
-                    <svg (click)="ConfDesativar(tipo.id)" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                        fill="#e74c3c" class="material-icons bi bi-x-circle-fill" viewBox="0 0 16 16">
-                        <path
-                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z" />
-                    </svg>
-                </app-tooltip>
-                }
-                @else {
-                <app-tooltip texto="Ativar Tipo de Contato" position="top">
-                    <svg (click)="ConfAtivar(tipo.id)" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                        fill="#179C4F" class="material-icons bi bi-check-circle-fill" viewBox="0 0 16 16">
-                        <path
-                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
-                    </svg>
-                </app-tooltip>
-                }
-            </td>
-        </tr>
+  <thead>
+    <tr>
+      <th>Nome do Tipo de Contato</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (tipo of tipos; track $index) {
+    <tr>
+      <td>{{ tipo.descricao }}</td>
+      <td>
+        @if (secao === 'ativos') {
+        <app-tooltip texto="Desativar Tipo de Contato" position="top">
+          <svg
+            (click)="ConfDesativar(tipo.id)"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="#e74c3c"
+            class="material-icons bi bi-x-circle-fill"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"
+            />
+          </svg>
+        </app-tooltip>
+        } @else {
+        <app-tooltip texto="Ativar Tipo de Contato" position="top">
+          <svg
+            (click)="ConfAtivar(tipo.id)"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="#179C4F"
+            class="material-icons bi bi-check-circle-fill"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"
+            />
+          </svg>
+        </app-tooltip>
         }
-    </tbody>
+      </td>
+    </tr>
+    }
+  </tbody>
 </table>
 }
 
-
 <!--Modal de Confirmar-->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true" #ModalConf>
-    <app-modal-confirm [texto]="textoConfirmar" [acaoContinuar]="alterarStatus.bind(this)"></app-modal-confirm>
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+  #ModalConf
+>
+  <app-modal-confirm
+    [texto]="textoConfirmar"
+    [titulo]="tituloConfirmar"
+    [acaoContinuar]="alterarStatus.bind(this)"
+  ></app-modal-confirm>
 </div>
 
 <!--Toast-->
-<div class="toast position-absolute border-0 top-0 end-0 m-4" role="alert" #Toast> 
-    <app-toast [mensagem]="feedbackToast" [toastClass]="tipoFeedback"></app-toast>   
+<div
+  class="toast position-absolute border-0 top-0 end-0 m-4"
+  role="alert"
+  #Toast
+>
+  <app-toast [mensagem]="feedbackToast" [toastClass]="tipoFeedback"></app-toast>
 </div>

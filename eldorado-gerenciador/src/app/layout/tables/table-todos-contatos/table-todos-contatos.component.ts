@@ -1,20 +1,34 @@
-import { Component, ElementRef, inject, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  inject,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { TooltipComponent } from '../../../tools/tooltip/tooltip.component';
 import { ModalConfirmComponent } from '../../modals/modal-confirm/modal-confirm.component';
 import { Contato } from '../../../models/contato-model';
 import { ContatoService } from '../../../services/contato.service';
-import { TableStatusComponent } from "../../../tools/table-status/table-status.component";
-import { ToastComponent } from "../../../tools/toast/toast.component";
+import { TableStatusComponent } from '../../../tools/table-status/table-status.component';
+import { ToastComponent } from '../../../tools/toast/toast.component';
 
 @Component({
   selector: 'app-table-todos-contatos',
-  imports: [TooltipComponent, ModalConfirmComponent, TableStatusComponent, ToastComponent],
+  imports: [
+    TooltipComponent,
+    ModalConfirmComponent,
+    TableStatusComponent,
+    ToastComponent,
+  ],
   templateUrl: './table-todos-contatos.component.html',
-  styleUrl: './table-todos-contatos.component.css'
+  styleUrl: './table-todos-contatos.component.css',
 })
-export class TableTodosContatosComponent implements OnChanges{
+export class TableTodosContatosComponent implements OnChanges {
   @Input() secao = ''; //secao atual
   textoConfirmar = ''; //texto para confirmar o modal
+  tituloConfirmar = ''; //titulo para confirmar modal
   statusTable = ''; //status da tabela
 
   idAlterar: undefined | number; //id para mudar o status
@@ -22,54 +36,65 @@ export class TableTodosContatosComponent implements OnChanges{
   tipoFeedback = ''; //tipo positivo/negativo
   @ViewChild('Toast') toastElement!: ElementRef;
 
-  private contactService = inject(ContatoService);  
+  private contactService = inject(ContatoService);
   contatos: Contato[] = [];
-  @ViewChild('ModalConf') modalElementConfirmar !: ElementRef;
+  @ViewChild('ModalConf') modalElementConfirmar!: ElementRef;
 
   //ao mudar secao do componente
   ngOnChanges(changes: SimpleChanges): void {
-      this.contatos = [];
-      if (changes['secao']) {
-        this.carregarContatos();
-      }
+    this.contatos = [];
+    if (changes['secao']) {
+      this.carregarContatos();
+    }
   }
 
   //carregar os contatos inativos ou ativos
   carregarContatos(): void {
     this.statusTable = 'Carregando Contatos...';
-    if (this.secao === 'secao1') {
+    if (this.secao === 'ativos') {
       this.contactService.listAtivos().subscribe({
         next: (data) => {
           this.contatos = data;
-          this.statusTable = this.contatos.length ? '' : 'Não há contatos ativos cadastrados :('; //ternario para status
+          this.statusTable = this.contatos.length
+            ? ''
+            : 'Não há contatos ativos cadastrados :('; //ternario para status
         },
         error: (err) => {
           //erro comum do usuario
           if (err.status === 401) {
-            this.feedbackToast = 'Sua sessão expirou! Faça novamente seu login.';
+            this.feedbackToast =
+              'Sua sessão expirou! Faça novamente seu login.';
           } else {
-            this.feedbackToast = `Ocorreu um erro: ${err.message || 'Erro desconhecido'}`;
+            this.feedbackToast = `Ocorreu um erro: ${
+              err.message || 'Erro desconhecido'
+            }`;
           }
           this.tipoFeedback = 'bg-danger';
           this.openModalToastS();
-        }
+        },
       });
-    } else if (this.secao === 'secao2') {
+    }
+    if (this.secao === 'inativos') {
       this.contactService.listInativos().subscribe({
         next: (data) => {
           this.contatos = data;
-          this.statusTable = this.contatos.length ? '' : 'Não há contatos inativos cadastrados :('; //ternario para status
+          this.statusTable = this.contatos.length
+            ? ''
+            : 'Não há contatos inativos cadastrados :('; //ternario para status
         },
         error: (err) => {
           //erro comum do usuario
           if (err.status === 401) {
-            this.feedbackToast = 'Sua sessão expirou! Faça novamente seu login.';
+            this.feedbackToast =
+              'Sua sessão expirou! Faça novamente seu login.';
           } else {
-            this.feedbackToast = `Ocorreu um erro: ${err.message || 'Erro desconhecido'}`;
+            this.feedbackToast = `Ocorreu um erro: ${
+              err.message || 'Erro desconhecido'
+            }`;
           }
           this.tipoFeedback = 'bg-danger';
           this.openModalToastS();
-        }
+        },
       });
     }
   }
@@ -88,18 +113,22 @@ export class TableTodosContatosComponent implements OnChanges{
         if (err.status === 401) {
           this.feedbackToast = 'Não autorizado! Faça novamente seu login.';
         } else {
-          this.feedbackToast = `Ocorreu um erro: ${err.message || 'Erro desconhecido'}`;
+          this.feedbackToast = `Ocorreu um erro: ${
+            err.message || 'Erro desconhecido'
+          }`;
         }
         this.tipoFeedback = 'bg-danger';
         this.openModalToastS();
-      }
+      },
     });
   }
 
   //Abrir o Modal de Confirmar Acao
-  openModalConfirmar(){
+  openModalConfirmar() {
     if (this.modalElementConfirmar) {
-      const modal = new (window as any).bootstrap.Modal(this.modalElementConfirmar.nativeElement);
+      const modal = new (window as any).bootstrap.Modal(
+        this.modalElementConfirmar.nativeElement
+      );
       modal.show();
     } else {
       console.error('Modal element não encontrado');
@@ -108,7 +137,9 @@ export class TableTodosContatosComponent implements OnChanges{
 
   openModalToastS() {
     if (this.toastElement) {
-      const modal = new (window as any).bootstrap.Toast(this.toastElement.nativeElement);
+      const modal = new (window as any).bootstrap.Toast(
+        this.toastElement.nativeElement
+      );
       modal.show();
     } else {
       console.error('Modal element não encontrado');
@@ -118,16 +149,18 @@ export class TableTodosContatosComponent implements OnChanges{
   //Desativar
   ConfDesativar(id: number) {
     this.idAlterar = id;
-    this.textoConfirmar = "Tem certeza de que deseja desativar este contato sem saber a qual usuário ele está relacionado?";
+    this.textoConfirmar =
+      'Tem certeza de que deseja desativar este contato sem saber a qual usuário ele está relacionado?';
+    this.tituloConfirmar = 'Confirmação de Desativação';
     this.openModalConfirmar();
   }
 
   //Ativar
   ConfAtivar(id: number) {
     this.idAlterar = id;
-    this.textoConfirmar = "Tem certeza de que deseja ativar este contato sem saber a qual usuário ele está relacionado?";
+    this.textoConfirmar =
+      'Tem certeza de que deseja ativar este contato sem saber a qual usuário ele está relacionado?';
+    this.tituloConfirmar = 'Confirmação de Ativação';
     this.openModalConfirmar();
   }
-  
-
 }
